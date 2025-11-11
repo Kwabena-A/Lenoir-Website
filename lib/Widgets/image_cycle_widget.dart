@@ -41,60 +41,63 @@ class _ImageCycleWidgetState extends State<ImageCycleWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SizedBox(
-          height: 725,
-          child: PageView(
+    return SizedBox(
+      height: MediaQuery.of(context).size.height - 50,
+      child: Stack(
+        children: [
+          PageView(
             controller: _controller,
             scrollDirection: Axis.horizontal,
             children: cycle,
           ),
-        ),
 
-        ValueListenableBuilder(
-          valueListenable: currentCycle,
-          builder: (context, currentIndex, child) {
-            _controller.animateToPage(
-              currentIndex % 3,
-              duration: Duration(milliseconds: 200),
-              curve: Curves.easeInOut,
-            );
-            return Container();
-          },
-        ),
+          ValueListenableBuilder(
+            valueListenable: currentCycle,
+            builder: (context, currentIndex, child) {
+              _controller.animateToPage(
+                currentIndex % 3,
+                duration: Duration(milliseconds: 200),
+                curve: Curves.easeInOut,
+              );
+              return Container();
+            },
+          ),
 
-        GestureDetector(
-          child: Container(
-            height: 725,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xB9000000),
-                  Colors.transparent,
-                  Colors.transparent,
-                  KColor.KBlack,
-                ],
-                begin: AlignmentGeometry.topCenter,
-                end: AlignmentGeometry.bottomCenter,
-                stops: [0, 0.2, 0.8, 1],
+          GestureDetector(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xB9000000),
+                    Colors.transparent,
+                    Colors.transparent,
+                    KColor.KBlack,
+                  ],
+                  begin: AlignmentGeometry.topCenter,
+                  end: AlignmentGeometry.bottomCenter,
+                  stops: [0, 0.2, 0.8, 1],
+                ),
               ),
             ),
           ),
-        ),
 
-        Padding(
-          padding: const EdgeInsets.only(top: 655),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Column(
             children: [
-              ...List.generate(cycle.length, (index) {
-                return CycleIndicator(count: cycle.length, index: index);
-              }),
+              Expanded(child: Container(), flex: 4),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ...List.generate(cycle.length, (index) {
+                      return CycleIndicator(count: cycle.length, index: index);
+                    }),
+                  ],
+                ),
+              ),
             ],
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -118,8 +121,9 @@ class CycleObject extends StatefulWidget {
 class _CycleObjectState extends State<CycleObject> {
   @override
   Widget build(BuildContext context) {
-    double widgetHeight = 725;
     double widgetWidth = MediaQuery.of(context).size.width;
+    double widgetHeight = MediaQuery.of(context).size.height;
+
     return Stack(
       children: [
         SizedBox(
@@ -131,7 +135,6 @@ class _CycleObjectState extends State<CycleObject> {
         Center(
           child: Container(
             width: widgetWidth,
-            height: widgetHeight,
             padding: EdgeInsets.symmetric(horizontal: 150, vertical: 100),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,

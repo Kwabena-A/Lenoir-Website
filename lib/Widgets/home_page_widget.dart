@@ -11,6 +11,6 @@ class HomePageWidget extends StatefulWidget {
 class _HomePageWidgetState extends State<HomePageWidget> {
   @override
   Widget build(BuildContext context) {
-    return Column(children: [ImageCycleWidget()]);
+    return SingleChildScrollView(child: Column(children: [ImageCycleWidget()]));
   }
 }
