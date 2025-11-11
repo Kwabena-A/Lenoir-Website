@@ -19,22 +19,70 @@ class _ImageCycleWidgetState extends State<ImageCycleWidget> {
       subHeadline: "our design engineer is so good",
     ),
     CycleObject(
-      image: "current_car.png",
-      headline: "Care becomes finalized and is ready to race",
+      image: "newsA.jpg",
+      headline:
+          "Furquan officially joins Lenoir Racing as the Manufacturing Engineer",
       subHeadline: "Al Ruwais",
     ),
     CycleObject(
-      image: "current_car.png",
-      headline: "Care becomes finalized and is ready to race",
-      subHeadline: "Dubai NIGGA",
+      image: "newsC.png",
+      headline:
+          "Is the uniform ready? After 8 Long months, we may be getting lenoir 2026 uniforms.",
+      subHeadline: "i guess we'll never know...",
     ),
   ];
+
+  final PageController _controller = PageController();
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        cycle.elementAt(currentCycle.value),
+        SizedBox(
+          height: 725,
+          child: PageView(
+            controller: _controller,
+            scrollDirection: Axis.horizontal,
+            children: cycle,
+          ),
+        ),
+
+        ValueListenableBuilder(
+          valueListenable: currentCycle,
+          builder: (context, currentIndex, child) {
+            _controller.animateToPage(
+              currentIndex % 3,
+              duration: Duration(milliseconds: 200),
+              curve: Curves.easeInOut,
+            );
+            return Container();
+          },
+        ),
+
+        GestureDetector(
+          child: Container(
+            height: 725,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xB9000000),
+                  Colors.transparent,
+                  Colors.transparent,
+                  KColor.KBlack,
+                ],
+                begin: AlignmentGeometry.topCenter,
+                end: AlignmentGeometry.bottomCenter,
+                stops: [0, 0.2, 0.8, 1],
+              ),
+            ),
+          ),
+        ),
+
         Padding(
           padding: const EdgeInsets.only(top: 655),
           child: Row(
@@ -71,34 +119,18 @@ class _CycleObjectState extends State<CycleObject> {
   @override
   Widget build(BuildContext context) {
     double widgetHeight = 725;
+    double widgetWidth = MediaQuery.of(context).size.width;
     return Stack(
       children: [
         SizedBox(
-          width: double.infinity,
+          width: widgetWidth,
           height: widgetHeight,
           child: Image.asset(widget.image, fit: BoxFit.cover),
         ),
 
-        Container(
-          height: widgetHeight,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xB9000000),
-                Colors.transparent,
-                Colors.transparent,
-                KColor.KBlack,
-              ],
-              begin: AlignmentGeometry.topCenter,
-              end: AlignmentGeometry.bottomCenter,
-              stops: [0, 0.2, 0.8, 1],
-            ),
-          ),
-        ),
-
         Center(
           child: Container(
+            width: widgetWidth,
             height: widgetHeight,
             padding: EdgeInsets.symmetric(horizontal: 150, vertical: 100),
             child: Column(
