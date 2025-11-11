@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lenoir_website/Widgets/text_button_widget.dart';
 
-class AppBarWidget extends StatefulWidget {
+class AppBarWidget extends StatelessWidget {
   const AppBarWidget({super.key});
 
-  @override
-  State<AppBarWidget> createState() => _AppBarWidgetState();
-}
-
-class _AppBarWidgetState extends State<AppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(

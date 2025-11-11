@@ -63,20 +63,18 @@ class _ImageCycleWidgetState extends State<ImageCycleWidget> {
             },
           ),
 
-          GestureDetector(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color(0xB9000000),
-                    Colors.transparent,
-                    Colors.transparent,
-                    KColor.KBlack,
-                  ],
-                  begin: AlignmentGeometry.topCenter,
-                  end: AlignmentGeometry.bottomCenter,
-                  stops: [0, 0.2, 0.8, 1],
-                ),
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xB9000000),
+                  Colors.transparent,
+                  Colors.transparent,
+                  KColor.KBlack,
+                ],
+                begin: AlignmentGeometry.topCenter,
+                end: AlignmentGeometry.bottomCenter,
+                stops: [0, 0.2, 0.8, 1],
               ),
             ),
           ),

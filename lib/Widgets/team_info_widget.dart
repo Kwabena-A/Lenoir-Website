@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../Data/values.dart';
 
 class TeamInfoWidget extends StatefulWidget {
   const TeamInfoWidget({super.key});
@@ -8,55 +11,39 @@ class TeamInfoWidget extends StatefulWidget {
 }
 
 class _TeamInfoWidgetState extends State<TeamInfoWidget> {
-  List<Widget> teamMembers = [
-    PersonInfo(
-      name: "Kwabena Aboagye",
-      image: "team_members/placeholder.png",
-      role: "Design Engineer",
-      description: "he made the car",
-    ),
-    PersonInfo(
-      name: "Imran Mikael",
-      image: "team_members/placeholder.png",
-      role: "Team Leader",
-      description: "he led the team",
-    ),
-    PersonInfo(
-      name: "Hisyam Arrazi",
-      image: "team_members/placeholder.png",
-      role: "Business Man",
-      description: "he did business",
-    ),
-    PersonInfo(
-      name: "Azmi Khaled",
-      image: "team_members/placeholder.png",
-      role: "Social Media",
-      description: "he did the media",
-    ),
-    PersonInfo(
-      name: "Ali Firman",
-      image: "team_members/placeholder.png",
-      role: "Graphic Design",
-      description: "he did the design",
-    ),
-    PersonInfo(
-      name: "Mohammed Furquan",
-      image: "team_members/placeholder.png",
-      role: "Manufacture Engineer",
-      description: "labour",
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: teamMembers,
+    return Column(
+      children: [
+        Stack(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: teamMembers,
+            ),
+            IgnorePointer(
+              child: Container(
+                height: MediaQuery.of(context).size.height - 100,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xB9000000), Colors.transparent],
+                    begin: AlignmentGeometry.topCenter,
+                    end: AlignmentGeometry.bottomCenter,
+                    stops: [0, 0.5],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        MemberDescription(),
+      ],
     );
   }
 }
 
-class PersonInfo extends StatelessWidget {
+class PersonInfo extends StatefulWidget {
   const PersonInfo({
     super.key,
     required this.name,
@@ -70,12 +57,118 @@ class PersonInfo extends StatelessWidget {
   final String description;
 
   @override
+  State<PersonInfo> createState() => _PersonInfoState();
+}
+
+class _PersonInfoState extends State<PersonInfo>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation _animation;
+  bool isHovering = false;
+
+  @override
+  void initState() {
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 3),
+    );
+    _animation = Tween(
+      begin: 1.0,
+      end: 1.2,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        height: MediaQuery.of(context).size.height - 50,
-        child: Image.asset(image, fit: BoxFit.cover),
-      ),
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Expanded(
+          child: MouseRegion(
+            onEnter: (event) {
+              currentPerson.value = widget;
+              if (_controller.status != AnimationStatus.forward) {
+                _controller.forward(from: _controller.value);
+              }
+            },
+            onExit: (event) {
+              isHovering = false;
+              if (_controller.status != AnimationStatus.reverse) {
+                _controller.reverse(from: _controller.value);
+              }
+            },
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height - 100,
+              child: ClipRRect(
+                child: Transform.scale(
+                  scale: _animation.value,
+                  child: Image.asset(widget.image, fit: BoxFit.cover),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class MemberDescription extends StatelessWidget {
+  const MemberDescription({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: currentPerson,
+      builder: (context, value, child) {
+        return Container(
+          width: double.infinity,
+          color: Colors.black,
+          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                currentPerson.value.name,
+                style: TextStyle(
+                  fontFamily: "oddlini",
+                  color: Colors.white,
+                  fontSize: 30,
+                  height: 0,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Text(
+                  currentPerson.value.role,
+                  style: GoogleFonts.getFont(
+                    "Montserrat",
+                    color: Colors.white,
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+
+              Text(
+                currentPerson.value.description,
+                style: GoogleFonts.getFont(
+                  "Montserrat",
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
