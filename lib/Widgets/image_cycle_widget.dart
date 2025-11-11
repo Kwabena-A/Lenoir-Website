@@ -42,7 +42,7 @@ class _ImageCycleWidgetState extends State<ImageCycleWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height - 50,
+      height: MediaQuery.of(context).size.height,
       child: Stack(
         children: [
           PageView(

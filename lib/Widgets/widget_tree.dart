@@ -13,10 +13,6 @@ class WidgetTree extends StatefulWidget {
 class _WidgetTreeState extends State<WidgetTree> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(children: [AppBarWidget(), HomePageWidget()]),
-      ),
-    );
+    return Scaffold(body: Stack(children: [HomePageWidget(), AppBarWidget()]));
   }
 }
