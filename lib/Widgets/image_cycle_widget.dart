@@ -36,15 +36,12 @@ class _ImageCycleWidgetState extends State<ImageCycleWidget> {
       children: [
         cycle.elementAt(currentCycle.value),
         Padding(
-          padding: const EdgeInsets.only(top: 625),
+          padding: const EdgeInsets.only(top: 655),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ...List.generate(cycle.length, (index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 3),
-                  child: CycleIndicator(count: cycle.length, index: index),
-                );
+                return CycleIndicator(count: cycle.length, index: index);
               }),
             ],
           ),

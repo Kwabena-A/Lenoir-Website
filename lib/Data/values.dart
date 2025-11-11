@@ -18,13 +18,6 @@ void startStopwatchUpdate() {
         ((cycleStopwatch.value.elapsedMilliseconds % loadingPeriod) /
                 loadingPeriod)
             .clamp(0.0, 1.0);
-
-    // print(progress);
-
-    if (progress == 0) {
-      currentCycle.value += 1;
-      print(currentCycle.value);
-    }
   });
 
   final Timer currentCycleTimer = Timer.periodic(
