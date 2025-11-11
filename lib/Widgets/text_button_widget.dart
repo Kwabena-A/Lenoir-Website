@@ -13,12 +13,15 @@ class TextButtonWidget extends StatefulWidget {
 class _TextButtonWidgetState extends State<TextButtonWidget> {
   @override
   Widget build(BuildContext context) {
-    return Text(
-      "Main",
-      style: GoogleFonts.getFont(
-        "Montserrat",
-        color: KColor.KMainColor,
-        height: 0,
+    return Padding(
+      padding: EdgeInsets.only(right: 50),
+      child: Text(
+        widget.text,
+        style: GoogleFonts.getFont(
+          "Montserrat",
+          color: KColor.KMainColor,
+          height: 0,
+        ),
       ),
     );
   }

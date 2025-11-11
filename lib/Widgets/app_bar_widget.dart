@@ -28,7 +28,10 @@ class _AppBarWidgetState extends State<AppBarWidget> {
               child: Image.asset("assets/white-icon.png"),
             ),
           ),
-          TextButtonWidget(text: "Main"),
+          TextButtonWidget(text: "Racing"),
+          TextButtonWidget(text: "About Us"),
+          TextButtonWidget(text: "Our Cars"),
+          TextButtonWidget(text: "Schedule"),
         ],
       ),
     );
