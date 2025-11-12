@@ -96,6 +96,18 @@ class _PersonInfoState extends State<PersonInfo>
     super.dispose();
   }
 
+  void animateForward() {
+    if (_controller.status != AnimationStatus.forward) {
+      _controller.forward(from: _controller.value);
+    }
+  }
+
+  void animateReverse() {
+    if (_controller.status != AnimationStatus.reverse) {
+      _controller.reverse(from: _controller.value);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -105,15 +117,10 @@ class _PersonInfoState extends State<PersonInfo>
           child: MouseRegion(
             onEnter: (event) {
               currentPerson.value = widget;
-              if (_controller.status != AnimationStatus.forward) {
-                _controller.forward(from: _controller.value);
-              }
+              animateForward();
             },
             onExit: (event) {
-              isHovering = false;
-              if (_controller.status != AnimationStatus.reverse) {
-                _controller.reverse(from: _controller.value);
-              }
+              animateReverse();
             },
             child: ClipRect(
               child: Transform.scale(
