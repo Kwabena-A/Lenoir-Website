@@ -7,7 +7,7 @@ import 'Data/values.dart';
 
 void main() {
   runApp(const MyApp());
-  startStopwatchUpdate();
+  resetTimings();
 }
 
 class MyApp extends StatelessWidget {

@@ -5,6 +5,7 @@ import 'package:lenoir_website/Widgets/cycle_indicator_widget.dart';
 
 import '../Data/values.dart';
 
+// Logic
 class ImageCycleWidget extends StatefulWidget {
   const ImageCycleWidget({super.key});
   @override
@@ -63,18 +64,20 @@ class _ImageCycleWidgetState extends State<ImageCycleWidget> {
             },
           ),
 
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xB9000000),
-                  Colors.transparent,
-                  Colors.transparent,
-                  KColor.KBlack,
-                ],
-                begin: AlignmentGeometry.topCenter,
-                end: AlignmentGeometry.bottomCenter,
-                stops: [0, 0.2, 0.8, 1],
+          IgnorePointer(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xB9000000),
+                    Colors.transparent,
+                    Colors.transparent,
+                    KColor.KBlack,
+                  ],
+                  begin: AlignmentGeometry.topCenter,
+                  end: AlignmentGeometry.bottomCenter,
+                  stops: [0, 0.2, 0.8, 1],
+                ),
               ),
             ),
           ),
@@ -100,6 +103,7 @@ class _ImageCycleWidgetState extends State<ImageCycleWidget> {
   }
 }
 
+// Each Slide
 class CycleObject extends StatefulWidget {
   final String image;
   final String headline;

@@ -227,6 +227,14 @@ class _MemberDescriptionState extends State<MemberDescription>
   }
 
   @override
+  void dispose() {
+    _controllerTitle.dispose();
+    _controllerRole.dispose();
+    _controllerDescription.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: currentPerson,

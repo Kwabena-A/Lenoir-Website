@@ -9,28 +9,46 @@ final ValueNotifier<Stopwatch> cycleStopwatch = ValueNotifier(
   Stopwatch()..start(),
 );
 
-void startStopwatchUpdate() {
-  const int loadingPeriod = 10000;
+Timer currentCycleUpdate = createCycleUpdate();
+Timer stopwatchUpdate = createStopwatchUpdate();
 
-  final Timer cycleTimer = Timer.periodic(Duration(milliseconds: 10), (timer) {
+Timer createStopwatchUpdate() {
+  return Timer.periodic(Duration(milliseconds: 10), (timer) {
     cycleStopwatch.notifyListeners();
-
-    final num progress =
-        ((cycleStopwatch.value.elapsedMilliseconds % loadingPeriod) /
-                loadingPeriod)
-            .clamp(0.0, 1.0);
   });
+}
 
-  final Timer currentCycleTimer = Timer.periodic(
-    Duration(milliseconds: loadingPeriod),
-    (timer) {
-      cycleStopwatch.value.reset();
-      currentCycle.value += 1;
-    },
-  );
+Timer createCycleUpdate() {
+  return Timer.periodic(Duration(milliseconds: 10000), (timer) {
+    cycleStopwatch.value.reset();
+    currentCycle.value += 1;
+  });
+}
+
+void cancelTimers() {
+  currentCycleUpdate.cancel();
+  stopwatchUpdate.cancel();
+  cycleStopwatch.value.stop();
+}
+
+void resetTimings() {
+  cycleStopwatch.value.reset();
+
+  currentCycleUpdate.cancel();
+  currentCycleUpdate = createCycleUpdate();
+
+  stopwatchUpdate.cancel();
+  stopwatchUpdate = createStopwatchUpdate();
 }
 
 List<PersonInfo> teamMembers = [
+  PersonInfo(
+    name: "Imran Mikael",
+    image: "team_members/placeholder.png",
+    role: "Team Leader",
+    description:
+        "Coordinates the team’s activities, ensuring deadlines, meetings, and tasks are met. Acts as the main point of contact between the team, mentors, and competition organizers.",
+  ),
   PersonInfo(
     name: "Kwabena Aboagye",
     image: "team_members/placeholder.png",
@@ -39,11 +57,11 @@ List<PersonInfo> teamMembers = [
         "Creates the 3D model of the car using CAD software, optimizing for speed, weight, and aerodynamics. Works closely with the manufacturing team to ensure designs are feasible.",
   ),
   PersonInfo(
-    name: "Imran Mikael",
+    name: "Ali Firman",
     image: "team_members/placeholder.png",
-    role: "Team Leader",
+    role: "Graphic Design",
     description:
-        "Coordinates the team’s activities, ensuring deadlines, meetings, and tasks are met. Acts as the main point of contact between the team, mentors, and competition organizers.",
+        "Designs the team logo, livery, and presentation materials. Maintains the team’s visual identity across all promotional content.",
   ),
   PersonInfo(
     name: "Hisyam Arrazi",
@@ -58,13 +76,6 @@ List<PersonInfo> teamMembers = [
     role: "Social Media",
     description:
         "Creates content and manages posts on all platforms to grow audience engagement. Tracks analytics and ensures the team maintains a strong online presence.",
-  ),
-  PersonInfo(
-    name: "Ali Firman",
-    image: "team_members/placeholder.png",
-    role: "Graphic Design",
-    description:
-        "Designs the team logo, livery, and presentation materials. Maintains the team’s visual identity across all promotional content.",
   ),
   PersonInfo(
     name: "Mohammed Furquan",
