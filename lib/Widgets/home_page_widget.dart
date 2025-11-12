@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:lenoir_website/Widgets/image_cycle_widget.dart';
-import 'package:lenoir_website/Widgets/team_info_widget.dart';
+import 'package:lenoir_website/Widgets/image_cycle/image_cycle_widget.dart';
+import 'package:lenoir_website/Widgets/team_info/team_info_widget.dart';
 
 final ScrollController homePageScrollController = ScrollController();
 

@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:lenoir_website/Widgets/team_info_widget.dart';
+import 'package:lenoir_website/Widgets/team_info/team_info_widget.dart';
+
+import '../Widgets/team_info/person_info_widget.dart';
 
 final ValueNotifier<int> currentCycle = ValueNotifier(0);
 

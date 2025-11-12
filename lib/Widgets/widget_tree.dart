@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lenoir_website/Widgets/home_page_widget.dart';
 
-import 'app_bar_widget.dart';
+import 'app_bar/app_bar_widget.dart';
 
 class WidgetTree extends StatefulWidget {
   const WidgetTree({super.key});
