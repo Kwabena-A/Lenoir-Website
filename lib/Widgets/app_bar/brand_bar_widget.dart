@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../Data/icons.dart';
 
 class BrandBar extends StatelessWidget {
   const BrandBar({super.key});
@@ -31,7 +34,7 @@ class BrandBar extends StatelessWidget {
               Icon(Icons.info_outline, color: Colors.white, size: 20),
             ],
           ),
-          Image.asset("assets/lenoir_icon_white.png", height: 35, width: 35),
+          SvgPicture.string(KIcons.lenoirIcon, height: 30, width: 30),
         ],
       ),
     );

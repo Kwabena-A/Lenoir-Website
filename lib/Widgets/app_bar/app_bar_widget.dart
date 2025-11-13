@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lenoir_website/Widgets/home_page_widget.dart';
 import 'package:lenoir_website/Widgets/app_bar/text_button_widget.dart';
 
+import '../../Data/icons.dart';
 import 'brand_bar_widget.dart';
 
 class AppBarWidget extends StatefulWidget {
@@ -75,10 +77,7 @@ class _AppBarWidgetState extends State<AppBarWidget>
                           width: 25,
                           height: 25,
                           alignment: Alignment.center,
-                          child: Image.asset(
-                            "assets/lenoir_icon_white.png",
-                            scale: 0.2,
-                          ),
+                          child: SvgPicture.string(KIcons.lenoirIcon),
                         ),
                         TextButtonWidget(text: "Racing"),
                         TextButtonWidget(text: "About Us"),
