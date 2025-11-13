@@ -76,7 +76,7 @@ class _AppBarWidgetState extends State<AppBarWidget>
                           height: 25,
                           alignment: Alignment.center,
                           child: Image.asset(
-                            "assets/white-icon.png",
+                            "assets/lenoir_icon_white.png",
                             scale: 0.2,
                           ),
                         ),

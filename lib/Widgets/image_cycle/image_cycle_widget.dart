@@ -14,27 +14,7 @@ class ImageCycleWidget extends StatefulWidget {
 }
 
 class _ImageCycleWidgetState extends State<ImageCycleWidget> {
-  static const List<CycleObject> cycle = [
-    CycleObject(
-      image: "current_car.png",
-      headline: "Car becomes finalized and is ready to race",
-      subHeadline: "our design engineer is so good",
-    ),
-    CycleObject(
-      image: "newsA.jpg",
-      headline:
-          "Furquan officially joins Lenoir Racing as the Manufacturing Engineer",
-      subHeadline: "Al Ruwais",
-    ),
-    CycleObject(
-      image: "newsC.png",
-      headline:
-          "Is the uniform ready? After 8 Long months, we may be getting lenoir 2026 uniforms.",
-      subHeadline: "i guess we'll never know...",
-    ),
-  ];
-
-  final PageController _controller = PageController();
+  final ScrollController _controller = ScrollController();
   @override
   void dispose() {
     _controller.dispose();
@@ -47,17 +27,19 @@ class _ImageCycleWidgetState extends State<ImageCycleWidget> {
       height: MediaQuery.of(context).size.height,
       child: Stack(
         children: [
-          PageView(
-            controller: _controller,
-            scrollDirection: Axis.horizontal,
-            children: cycle,
+          IgnorePointer(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              controller: _controller,
+              child: Row(children: headlines),
+            ),
           ),
 
           ValueListenableBuilder(
             valueListenable: currentCycle,
             builder: (context, currentIndex, child) {
-              _controller.animateToPage(
-                currentIndex % 3,
+              _controller.animateTo(
+                (currentIndex % 3) * MediaQuery.of(context).size.width,
                 duration: Duration(milliseconds: 200),
                 curve: Curves.easeInOut,
               );
@@ -90,8 +72,11 @@ class _ImageCycleWidgetState extends State<ImageCycleWidget> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ...List.generate(cycle.length, (index) {
-                      return CycleIndicator(count: cycle.length, index: index);
+                    ...List.generate(headlines.length, (index) {
+                      return CycleIndicator(
+                        count: headlines.length,
+                        index: index,
+                      );
                     }),
                   ],
                 ),

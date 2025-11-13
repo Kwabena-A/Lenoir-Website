@@ -1,9 +1,29 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:lenoir_website/Widgets/team_info/team_info_widget.dart';
 
+import '../Widgets/image_cycle/cycle_object_widget.dart';
 import '../Widgets/team_info/person_info_widget.dart';
+
+final List<CycleObject> headlines = [
+  CycleObject(
+    image: "current_car.png",
+    headline: "Car becomes finalized and is ready to race",
+    subHeadline: "our design engineer is so good",
+  ),
+  CycleObject(
+    image: "newsA.jpg",
+    headline:
+        "Furquan officially joins Lenoir Racing as the Manufacturing Engineer",
+    subHeadline: "Al Ruwais",
+  ),
+  CycleObject(
+    image: "newsC.png",
+    headline:
+        "Is the uniform ready? After 8 Long months, we may be getting lenoir 2026 uniforms.",
+    subHeadline: "i guess we'll never know...",
+  ),
+];
 
 final ValueNotifier<int> currentCycle = ValueNotifier(0);
 

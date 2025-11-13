@@ -31,7 +31,7 @@ class BrandBar extends StatelessWidget {
               Icon(Icons.info_outline, color: Colors.white, size: 20),
             ],
           ),
-          Image.asset("assets/white-icon.png", height: 35, width: 35),
+          Image.asset("assets/lenoir_icon_white.png", height: 35, width: 35),
         ],
       ),
     );
