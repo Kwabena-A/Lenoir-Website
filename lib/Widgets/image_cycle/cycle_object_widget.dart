@@ -47,7 +47,7 @@ class _CycleObjectState extends State<CycleObject>
       end: 0.0,
     ).animate(_controllerHeadline);
     _animationHeadlineOpacity = ColorTween(
-      begin: Color(0xFFFFFF),
+      begin: Color(0x00ffffff),
       end: Colors.white,
     ).animate(_controllerHeadline);
 
@@ -61,7 +61,7 @@ class _CycleObjectState extends State<CycleObject>
       end: 0.0,
     ).animate(_controllerSubheadline);
     _animationSubheadlineOpacity = ColorTween(
-      begin: Color(0xFFFFFF),
+      begin: Color(0x00ffffff),
       end: Colors.white,
     ).animate(_controllerSubheadline);
 

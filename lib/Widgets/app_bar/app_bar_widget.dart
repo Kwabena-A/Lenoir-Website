@@ -1,8 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lenoir_website/Widgets/home_page_widget.dart';
 import 'package:lenoir_website/Widgets/app_bar/text_button_widget.dart';
 
@@ -42,7 +39,7 @@ class _AppBarWidgetState extends State<AppBarWidget>
           _controller.forward();
         }
       }
-      if (deltaScrollPosition > 0) {
+      if (deltaScrollPosition > 0 || homePageScrollController.offset == 0) {
         if (_controller.status != AnimationStatus.reverse) {
           _controller.reverse();
         }

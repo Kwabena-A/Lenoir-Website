@@ -72,12 +72,18 @@ class _PersonInfoState extends State<PersonInfo>
             onExit: (event) {
               animateReverse();
             },
-            child: ClipRect(
-              child: Transform.scale(
-                scale: _animation.value,
-                child: SizedBox(
-                  height: double.infinity,
-                  child: Image.asset(widget.image, fit: BoxFit.cover),
+            child: GestureDetector(
+              onTap: () {
+                currentPerson.value = widget;
+                animateForward();
+              },
+              child: ClipRect(
+                child: Transform.scale(
+                  scale: _animation.value,
+                  child: SizedBox(
+                    height: double.infinity,
+                    child: Image.asset(widget.image, fit: BoxFit.cover),
+                  ),
                 ),
               ),
             ),

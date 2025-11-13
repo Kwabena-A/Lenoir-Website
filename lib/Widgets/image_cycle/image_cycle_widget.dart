@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenoir_website/Data/constants.dart';
 import 'package:lenoir_website/Widgets/image_cycle/cycle_indicator_widget.dart';
 
 import '../../Data/values.dart';
-import 'cycle_object_widget.dart';
 
 // Logic
 class ImageCycleWidget extends StatefulWidget {
@@ -67,7 +65,7 @@ class _ImageCycleWidgetState extends State<ImageCycleWidget> {
 
           Column(
             children: [
-              Expanded(child: Container(), flex: 4),
+              Expanded(flex: 4, child: Container()),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
