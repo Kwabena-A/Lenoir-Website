@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lenoir_website/Data/values.dart';
 
 import '../../Data/icons.dart';
 
@@ -18,7 +19,10 @@ class BrandBar extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(Icons.menu, color: Colors.white, size: 20),
+              GestureDetector(
+                child: Icon(Icons.menu, color: Colors.white, size: 20),
+                onTap: () => menuNav.value = true,
+              ),
               SizedBox(width: 20),
               Text(
                 "STEM Racing 2026",

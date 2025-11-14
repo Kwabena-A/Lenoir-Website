@@ -1,6 +1,9 @@
 import 'dart:async';
-
+import 'dart:js_interop';
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:lenoir_website/Widgets/Menu/menu_object_widget.dart';
+import 'package:lenoir_website/Widgets/Menu/stock_image_cycle_widget.dart';
 
 import '../Widgets/image_cycle/cycle_object_widget.dart';
 import '../Widgets/team_info/person_info_widget.dart';
@@ -110,4 +113,30 @@ List<PersonInfo> teamMembers = [
 
 final ValueNotifier<PersonInfo> currentPerson = ValueNotifier(
   teamMembers.elementAt(0),
+);
+
+ValueNotifier<bool> menuNav = ValueNotifier(false);
+
+final MenuObjectWidget ourCarMenu = MenuObjectWidget(
+  title: "Our Cars",
+  children: [
+    MenuObjectWidget(title: "2025"),
+    MenuObjectWidget(title: ""),
+    MenuObjectWidget(title: "Lenoir Debut"),
+    MenuObjectWidget(title: "V48 - Growth"),
+    MenuObjectWidget(title: "V32 - Step Back"),
+    MenuObjectWidget(title: "V15 - Intro"),
+  ],
+);
+final MenuObjectWidget mainMenuObject = MenuObjectWidget(
+  title: "Main Menu",
+  children: [
+    MenuObjectWidget(title: "LENOIR RACING"),
+    MenuObjectWidget(title: ""),
+    MenuObjectWidget(title: "Home", displayElement: StockImageCycleWidget()),
+    ourCarMenu,
+    MenuObjectWidget(title: "About us"),
+    MenuObjectWidget(title: "Schedule"),
+    MenuObjectWidget(title: "Gallery"),
+  ],
 );
