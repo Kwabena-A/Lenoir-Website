@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:js_interop';
+import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:lenoir_website/Widgets/Menu/menu_object_widget.dart';
@@ -115,13 +116,25 @@ final ValueNotifier<PersonInfo> currentPerson = ValueNotifier(
   teamMembers.elementAt(0),
 );
 
+Image randomStockImage() {
+  Random rng = Random();
+
+  return Image.asset(
+    "stock_images/${rng.nextInt(6) + 1}.jpg",
+    fit: BoxFit.cover,
+  );
+}
+
+enum NavType { link, scroll, navTo, heading, spacing }
+
 ValueNotifier<bool> menuNav = ValueNotifier(false);
 
 final MenuObjectWidget ourCarMenu = MenuObjectWidget(
   title: "Our Cars",
+  deep: true,
   children: [
-    MenuObjectWidget(title: "2025"),
-    MenuObjectWidget(title: ""),
+    MenuObjectWidget(title: "2025", isHeading: true),
+    MenuObjectWidget(title: "", isHeading: true),
     MenuObjectWidget(title: "Lenoir Debut"),
     MenuObjectWidget(title: "V48 - Growth"),
     MenuObjectWidget(title: "V32 - Step Back"),
@@ -131,9 +144,9 @@ final MenuObjectWidget ourCarMenu = MenuObjectWidget(
 final MenuObjectWidget mainMenuObject = MenuObjectWidget(
   title: "Main Menu",
   children: [
-    MenuObjectWidget(title: "LENOIR RACING"),
-    MenuObjectWidget(title: ""),
-    MenuObjectWidget(title: "Home", displayElement: StockImageCycleWidget()),
+    MenuObjectWidget(title: "LENOIR RACING", isHeading: true),
+    MenuObjectWidget(title: "", isHeading: true),
+    MenuObjectWidget(title: "Home"),
     ourCarMenu,
     MenuObjectWidget(title: "About us"),
     MenuObjectWidget(title: "Schedule"),

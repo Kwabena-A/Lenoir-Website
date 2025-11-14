@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:lenoir_website/Data/values.dart';
 
 class StockImageCycleWidget extends StatefulWidget {
   const StockImageCycleWidget({super.key});
@@ -12,13 +13,20 @@ class StockImageCycleWidget extends StatefulWidget {
 class _StockImageCycleWidgetState extends State<StockImageCycleWidget> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        BackdropFilter(
-          filter: ImageFilter.blur(sigmaY: 10, sigmaX: 10),
-          child: Container(color: Colors.black.withAlpha(0)),
-        ),
-      ],
+    return Expanded(
+      child: Stack(
+        children: [
+          Positioned.fill(child: randomStockImage()),
+          Positioned.fill(
+            child: ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaY: 10, sigmaX: 10),
+                child: Container(color: Colors.black.withAlpha(0)),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
