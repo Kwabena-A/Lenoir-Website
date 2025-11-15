@@ -9,4 +9,10 @@ class KIcons {
 
   static String rightIcon =
       """<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" zoomAndPan="magnify" viewBox="0 0 375 374.999991" height="500" preserveAspectRatio="xMidYMid meet" version="1.0"><defs><clipPath id="5053e05aae"><path d="M 25.078125 0 L 349.828125 0 L 349.828125 375 L 25.078125 375 Z M 25.078125 0 " clip-rule="nonzero"/></clipPath></defs><g clip-path="url(#5053e05aae)"><path fill="#000000" d="M 349.789062 187.5 L 25.125 375 L 187.527344 187.5 L 25.125 0 L 349.789062 187.5 " fill-opacity="1" fill-rule="nonzero"/></g></svg>""";
+
+  static String link =
+      """<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+</svg>
+""";
 }

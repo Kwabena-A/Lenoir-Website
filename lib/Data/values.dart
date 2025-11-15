@@ -125,31 +125,34 @@ Image randomStockImage() {
   );
 }
 
-enum NavType { link, scroll, navTo, heading, spacing }
+enum NavType { link, scrollTo, navTo, heading, spacing, none }
 
 ValueNotifier<bool> menuNav = ValueNotifier(false);
 
 final MenuObjectWidget ourCarMenu = MenuObjectWidget(
   title: "Our Cars",
+  navType: NavType.navTo,
   deep: true,
   children: [
-    MenuObjectWidget(title: "2025", isHeading: true),
-    MenuObjectWidget(title: "", isHeading: true),
-    MenuObjectWidget(title: "Lenoir Debut"),
-    MenuObjectWidget(title: "V48 - Growth"),
-    MenuObjectWidget(title: "V32 - Step Back"),
-    MenuObjectWidget(title: "V15 - Intro"),
+    MenuObjectWidget(title: "2025", navType: NavType.heading),
+    MenuObjectWidget(title: "", navType: NavType.spacing),
+    MenuObjectWidget(title: "Lenoir Debut", navType: NavType.navTo),
+    MenuObjectWidget(title: "V48 - Growth", navType: NavType.navTo),
+    MenuObjectWidget(title: "V32 - Step Back", navType: NavType.navTo),
+    MenuObjectWidget(title: "V15 - Intro", navType: NavType.navTo),
   ],
 );
 final MenuObjectWidget mainMenuObject = MenuObjectWidget(
   title: "Main Menu",
+  navType: NavType.none,
   children: [
-    MenuObjectWidget(title: "LENOIR RACING", isHeading: true),
-    MenuObjectWidget(title: "", isHeading: true),
-    MenuObjectWidget(title: "Home"),
+    MenuObjectWidget(title: "LENOIR RACING", navType: NavType.heading),
+    MenuObjectWidget(title: "", navType: NavType.heading),
+    MenuObjectWidget(title: "Home", navType: NavType.none),
     ourCarMenu,
-    MenuObjectWidget(title: "About us"),
-    MenuObjectWidget(title: "Schedule"),
-    MenuObjectWidget(title: "Gallery"),
+    MenuObjectWidget(title: "About us", navType: NavType.scrollTo),
+    MenuObjectWidget(title: "Schedule", navType: NavType.scrollTo),
+    MenuObjectWidget(title: "Gallery", navType: NavType.navTo),
+    MenuObjectWidget(title: "Socials", navType: NavType.link),
   ],
 );
