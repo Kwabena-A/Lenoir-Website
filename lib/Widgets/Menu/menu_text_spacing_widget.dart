@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MenuSpacingWidget extends StatelessWidget {
-  const MenuSpacingWidget({super.key});
+class MenuTextSpacingWidget extends StatelessWidget {
+  const MenuTextSpacingWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

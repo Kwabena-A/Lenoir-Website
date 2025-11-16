@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class MenuHeadingWidget extends StatelessWidget {
+class MenuTextHeadingWidget extends StatelessWidget {
   final String title;
   final ValueNotifier isSelected;
   final int index;
 
-  const MenuHeadingWidget({
+  const MenuTextHeadingWidget({
     super.key,
     required this.title,
     required this.isSelected,

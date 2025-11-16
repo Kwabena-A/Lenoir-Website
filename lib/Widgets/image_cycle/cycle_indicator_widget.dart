@@ -16,7 +16,6 @@ class _CycleIndicatorState extends State<CycleIndicator>
 
   late AnimationController _controller;
   late Animation _radiusAnimation;
-  late Animation _colorAnimation;
   late Animation _strokeAnimation;
 
   @override
@@ -32,10 +31,6 @@ class _CycleIndicatorState extends State<CycleIndicator>
     );
 
     _radiusAnimation = Tween(begin: 1, end: 0.2).animate(curve);
-    _colorAnimation = ColorTween(
-      begin: Colors.white24,
-      end: Color(0xffdcc893),
-    ).animate(curve);
     _strokeAnimation = IntTween(begin: 3, end: 34).animate(curve);
 
     super.initState();

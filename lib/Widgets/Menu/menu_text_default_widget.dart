@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../Data/icons.dart';
-import '../../Data/values.dart';
-
-class MenuDefaultWidget extends StatelessWidget {
+class MenuTextDefaultWidget extends StatelessWidget {
   final String title;
   final ValueNotifier isSelected;
   final int index;
   final String? icon;
-  final Function? onTap;
+  final Function()? onTap;
 
-  const MenuDefaultWidget({
+  const MenuTextDefaultWidget({
     super.key,
     required this.title,
     required this.isSelected,

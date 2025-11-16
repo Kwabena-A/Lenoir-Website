@@ -22,7 +22,6 @@ class _MemberDescriptionState extends State<MemberDescription>
   late Animation _animationRoleOpacity;
 
   late AnimationController _controllerDescription;
-  late Animation _animationDescriptionOffset;
   late Animation _animationDescriptionOpacity;
 
   late Listenable _merged;
@@ -68,10 +67,6 @@ class _MemberDescriptionState extends State<MemberDescription>
       vsync: this,
       duration: Duration(milliseconds: 300),
     );
-    _animationDescriptionOffset = Tween(
-      begin: -10.0,
-      end: 0.0,
-    ).animate(_controllerDescription);
     _animationDescriptionOpacity = ColorTween(
       begin: Colors.transparent,
       end: Colors.white,

@@ -1,13 +1,14 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'dart:async';
-import 'dart:js_interop';
 import 'dart:math';
-import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:lenoir_website/Widgets/Menu/car_display_element_widget.dart';
 import 'package:lenoir_website/Widgets/Menu/menu_object_widget.dart';
-import 'package:lenoir_website/Widgets/Menu/stock_image_cycle_widget.dart';
 
 import '../Widgets/image_cycle/cycle_object_widget.dart';
 import '../Widgets/team_info/person_info_widget.dart';
+import 'icons.dart';
 
 final List<CycleObject> headlines = [
   CycleObject(
@@ -40,6 +41,7 @@ Timer stopwatchUpdate = createStopwatchUpdate();
 
 Timer createStopwatchUpdate() {
   return Timer.periodic(Duration(milliseconds: 10), (timer) {
+    // ignore: invalid_use_of_visible_for_testing_member
     cycleStopwatch.notifyListeners();
   });
 }
@@ -125,34 +127,116 @@ Image randomStockImage() {
   );
 }
 
+class MenuObject {
+  final String title;
+  final NavType navType;
+  final bool? deep;
+  final List<MenuObject>? children;
+  final Widget? displayElement;
+  final Function? onTap;
+  late final String? icon;
+
+  MenuObject({
+    required this.title,
+    required this.navType,
+    this.deep,
+    this.children,
+    this.displayElement,
+    this.onTap,
+  }) {
+    if (navType == NavType.navTo) {
+      icon = KIcons.rightIcon;
+    } else if (navType == NavType.link) {
+      icon = KIcons.link;
+    } else {
+      icon = null;
+    }
+  }
+
+  bool hasDisplayElement() {
+    return (displayElement != null);
+  }
+
+  bool hasChildren() {
+    return (children != null);
+  }
+}
+
 enum NavType { link, scrollTo, navTo, heading, spacing, none }
 
 ValueNotifier<bool> menuNav = ValueNotifier(false);
 
-final MenuObjectWidget ourCarMenu = MenuObjectWidget(
+final MenuObject ourCarMenu = MenuObject(
   title: "Our Cars",
   navType: NavType.navTo,
   deep: true,
   children: [
-    MenuObjectWidget(title: "2025", navType: NavType.heading),
-    MenuObjectWidget(title: "", navType: NavType.spacing),
-    MenuObjectWidget(title: "Lenoir Debut", navType: NavType.navTo),
-    MenuObjectWidget(title: "V48 - Growth", navType: NavType.navTo),
-    MenuObjectWidget(title: "V32 - Step Back", navType: NavType.navTo),
-    MenuObjectWidget(title: "V15 - Intro", navType: NavType.navTo),
+    MenuObject(title: "2025", navType: NavType.heading),
+    MenuObject(title: "", navType: NavType.spacing),
+    MenuObject(
+      title: "Lenoir Debut",
+      navType: NavType.navTo,
+      displayElement: CarDisplayElementWidget(
+        drag: 2.2155,
+        lift: 0.0215,
+        carName: "2025_V6",
+        heading: "Product of trial and error",
+        body:
+            "V6 marks our first use of a CFD software to analytically compare designs. This servers as the benchmark to all future designs.",
+      ),
+    ),
+    MenuObject(
+      title: "V5 - A Step Back",
+      navType: NavType.navTo,
+      displayElement: CarDisplayElementWidget(
+        drag: 0.2758,
+        lift: -0.0158,
+        carName: "2025_V5",
+        heading: "A Controversial Design Choice",
+        body:
+            "By rising the models base height to match the wheel height, we achieved the first and only instance of downforce at the cost of the highest measured drag—a cost we couldn’t pay due to the nature of the races being straight-lined.",
+      ),
+    ),
+    MenuObject(
+      title: "V4 - Growth",
+      navType: NavType.navTo,
+      displayElement: CarDisplayElementWidget(
+        drag: 0.2325,
+        lift: 0.0014,
+        carName: "2025_V4",
+        heading: "Development of Front Wing",
+        body:
+            "V4 highlights our first implementation of a double wing system. Forcing air into lower wings whilst dramatically decreasing lift, this proved itself as the best front wing type.",
+      ),
+    ),
+    MenuObject(
+      title: "V3 - Intro",
+      navType: NavType.navTo,
+      displayElement: CarDisplayElementWidget(
+        drag: 0.2626,
+        lift: 0.1094,
+        carName: "2025_V3",
+        heading: "The Starting Point",
+        body:
+            "V3 marks our first use of a CFD software to analytically compare designs. This servers as the benchmark to all future designs.",
+      ),
+    ),
   ],
 );
+
 final MenuObjectWidget mainMenuObject = MenuObjectWidget(
-  title: "Main Menu",
-  navType: NavType.none,
-  children: [
-    MenuObjectWidget(title: "LENOIR RACING", navType: NavType.heading),
-    MenuObjectWidget(title: "", navType: NavType.heading),
-    MenuObjectWidget(title: "Home", navType: NavType.none),
-    ourCarMenu,
-    MenuObjectWidget(title: "About us", navType: NavType.scrollTo),
-    MenuObjectWidget(title: "Schedule", navType: NavType.scrollTo),
-    MenuObjectWidget(title: "Gallery", navType: NavType.navTo),
-    MenuObjectWidget(title: "Socials", navType: NavType.link),
-  ],
+  menuObject: MenuObject(
+    title: "Main Menu",
+    navType: NavType.none,
+    children: [
+      MenuObject(title: "LENOIR RACING", navType: NavType.heading),
+      MenuObject(title: "", navType: NavType.heading),
+      MenuObject(title: "Home", navType: NavType.none),
+      ourCarMenu,
+      MenuObject(title: "About us", navType: NavType.scrollTo),
+      MenuObject(title: "Schedule", navType: NavType.scrollTo),
+      MenuObject(title: "Gallery", navType: NavType.navTo),
+      MenuObject(title: "Socials", navType: NavType.link),
+    ],
+  ),
 );

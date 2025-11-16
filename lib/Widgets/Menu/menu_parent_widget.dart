@@ -15,22 +15,30 @@ class MenuParentWidget extends StatefulWidget {
 class _MenuParentWidgetState extends State<MenuParentWidget> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+    return Stack(
       children: [
-        Container(
-          width: 75,
-          alignment: Alignment.topCenter,
-          color: Color(0xFF2a2a2a),
-          padding: EdgeInsets.all(10),
-          height: double.infinity,
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 20),
-            child: SvgPicture.string(KIcons.lenoirIcon, height: 35, width: 35),
-          ),
-        ),
-        mainMenuObject,
         StockImageCycleWidget(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              width: 75,
+              alignment: Alignment.topCenter,
+              color: Color(0xFF2a2a2a),
+              padding: EdgeInsets.all(10),
+              height: double.infinity,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 20),
+                child: SvgPicture.string(
+                  KIcons.lenoirIcon,
+                  height: 35,
+                  width: 35,
+                ),
+              ),
+            ),
+            mainMenuObject,
+          ],
+        ),
       ],
     );
   }

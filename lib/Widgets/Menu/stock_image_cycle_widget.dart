@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lenoir_website/Data/values.dart';
 
@@ -13,20 +14,18 @@ class StockImageCycleWidget extends StatefulWidget {
 class _StockImageCycleWidgetState extends State<StockImageCycleWidget> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Stack(
-        children: [
-          Positioned.fill(child: randomStockImage()),
-          Positioned.fill(
-            child: ClipRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaY: 10, sigmaX: 10),
-                child: Container(color: Colors.black.withAlpha(0)),
-              ),
+    return Stack(
+      children: [
+        Positioned.fill(child: randomStockImage()),
+        Positioned.fill(
+          child: ClipRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaY: 10, sigmaX: 10),
+              child: Container(color: Colors.black.withAlpha(0)),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
