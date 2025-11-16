@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CarDisplayElementWidget extends StatefulWidget {
-  double lift;
-  double drag;
-  String carName;
-  String heading;
-  String body;
+  final double lift;
+  final double drag;
+  final String carName;
+  final String heading;
+  final String body;
 
-  CarDisplayElementWidget({
+  const CarDisplayElementWidget({
     super.key,
     required this.lift,
     required this.drag,
@@ -22,51 +22,68 @@ class CarDisplayElementWidget extends StatefulWidget {
       _CarDisplayElementWidgetState();
 }
 
-class _CarDisplayElementWidgetState extends State<CarDisplayElementWidget> {
-  late Image _image;
+class _CarDisplayElementWidgetState extends State<CarDisplayElementWidget>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation _animationOpacity;
 
   @override
   void initState() {
-    _image = Image.asset(
-      "car_versions/${widget.carName}.png",
-      fit: BoxFit.fitWidth,
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 600),
     );
+    _animationOpacity = Tween(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      precacheImage(_image.image, context);
-    });
-
+    _controller.forward();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Stack(
-        children: [
-          AnimatedSwitcher(
-            duration: Duration(seconds: 1),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              color: Color(0xb3000000),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Transform.translate(
-                    offset: Offset(0, -50),
-                    child: Image.asset("lenoir_background.png", scale: 0.1),
-                  ),
-                  SizedBox(height: 50),
-                  CarStats(drag: widget.drag, lift: widget.lift),
-                  SizedBox(height: 20),
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return Opacity(
+            opacity: _animationOpacity.value,
+            child: Stack(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  color: Color(0xb3000000),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Transform.translate(
+                        offset: Offset(0, -50),
+                        child: Image.asset("lenoir_background.png", scale: 0.1),
+                      ),
+                      SizedBox(height: 50),
+                      CarStats(drag: widget.drag, lift: widget.lift),
+                      SizedBox(height: 20),
 
-                  CarDescription(heading: widget.heading, body: widget.body),
-                ],
-              ),
+                      CarDescription(
+                        heading: widget.heading,
+                        body: widget.body,
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned.fill(
+                  top: 40,
+                  child: Image.asset(
+                    "car_versions/${widget.carName}.png",
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+              ],
             ),
-          ),
-          Positioned.fill(top: 40, child: _image),
-        ],
+          );
+        },
       ),
     );
   }

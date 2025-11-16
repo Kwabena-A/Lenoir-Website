@@ -127,6 +127,27 @@ Image randomStockImage() {
   );
 }
 
+const List<String> carVersionFileNames = [
+  "2025_V3",
+  "2025_V4",
+  "2025_V5",
+  "2025_V6",
+];
+List<Image> precachedCarVersions = [];
+
+void initPrecachedImages(context) {
+  for (String fileName in carVersionFileNames) {
+    Image image = Image.asset(
+      "car_versions/$fileName.png",
+      fit: BoxFit.fitWidth,
+    );
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      precacheImage(image.image, context);
+    });
+    precachedCarVersions.add(image);
+  }
+}
+
 class MenuObject {
   final String title;
   final NavType navType;
@@ -177,6 +198,7 @@ final MenuObject ourCarMenu = MenuObject(
       title: "Lenoir Debut",
       navType: NavType.navTo,
       displayElement: CarDisplayElementWidget(
+        key: Key("v6"),
         drag: 2.2155,
         lift: 0.0215,
         carName: "2025_V6",
@@ -189,6 +211,7 @@ final MenuObject ourCarMenu = MenuObject(
       title: "V5 - A Step Back",
       navType: NavType.navTo,
       displayElement: CarDisplayElementWidget(
+        key: Key("v5"),
         drag: 0.2758,
         lift: -0.0158,
         carName: "2025_V5",
@@ -201,6 +224,7 @@ final MenuObject ourCarMenu = MenuObject(
       title: "V4 - Growth",
       navType: NavType.navTo,
       displayElement: CarDisplayElementWidget(
+        key: Key("v4"),
         drag: 0.2325,
         lift: 0.0014,
         carName: "2025_V4",
@@ -213,6 +237,7 @@ final MenuObject ourCarMenu = MenuObject(
       title: "V3 - Intro",
       navType: NavType.navTo,
       displayElement: CarDisplayElementWidget(
+        key: Key("v3"),
         drag: 0.2626,
         lift: 0.1094,
         carName: "2025_V3",

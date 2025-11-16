@@ -15,10 +15,11 @@ class MenuObjectWidget extends StatefulWidget {
   State<MenuObjectWidget> createState() => _MenuObjectWidgetState();
 }
 
-class _MenuObjectWidgetState extends State<MenuObjectWidget> {
+class _MenuObjectWidgetState extends State<MenuObjectWidget>
+    with SingleTickerProviderStateMixin {
   ValueNotifier<int> _selected = ValueNotifier(0);
-  @override
-  void initState() {
+
+  void initSelected() {
     // _selected should be on the first clickable element,
     // Heading and spacing are not clickable
     // This makes _selected.value the first element that isn't Heading or spacing
@@ -34,6 +35,33 @@ class _MenuObjectWidgetState extends State<MenuObjectWidget> {
         }
       }
     }
+  }
+
+  late AnimationController _controller;
+  late Animation _animationSlideIn;
+  late Animation _animationOpacity;
+
+  void initAnimation() {
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 350),
+    );
+    _animationSlideIn = Tween(
+      begin: 300,
+      end: 0.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+    _animationOpacity = Tween(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+
+    _controller.forward();
+  }
+
+  @override
+  void initState() {
+    initSelected();
+    initAnimation();
 
     super.initState();
   }
@@ -41,71 +69,96 @@ class _MenuObjectWidgetState extends State<MenuObjectWidget> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            color: (widget.menuObject.deep == null)
-                ? Color(0xFF212121)
-                : Color(0xFF1c1c1c),
-            height: double.infinity,
-            width: 300,
-            padding: EdgeInsets.only(left: 20, right: 20, bottom: 50, top: 100),
-            child: (widget.menuObject.hasChildren())
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: List.generate(
-                      widget.menuObject.children!.length,
-                      (index) {
-                        MenuObject currentWidgetInfo = widget
-                            .menuObject
-                            .children!
-                            .elementAt(index);
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: (currentWidgetInfo.navType == NavType.heading)
-                              ? MenuTextHeadingWidget(
-                                  title: currentWidgetInfo.title,
-                                  isSelected: _selected,
-                                  index: index,
-                                )
-                              : (currentWidgetInfo.navType == NavType.spacing)
-                              ? MenuTextSpacingWidget()
-                              : MenuTextDefaultWidget(
-                                  title: currentWidgetInfo.title,
-                                  isSelected: _selected,
-                                  index: index,
-                                  icon: currentWidgetInfo.icon,
-                                ),
-                        );
-                      },
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Opacity(
+                opacity: _animationOpacity.value,
+                child: Transform.translate(
+                  offset: Offset(0, _animationSlideIn.value),
+                  child: Container(
+                    color: (widget.menuObject.deep == null)
+                        ? Color(0xFF212121)
+                        : Color(0xFF1c1c1c),
+                    height: double.infinity,
+                    width: 300,
+                    padding: EdgeInsets.only(
+                      left: 20,
+                      right: 20,
+                      bottom: 50,
+                      top: 100,
                     ),
-                  )
-                : Container(),
-          ),
+                    child: (widget.menuObject.hasChildren())
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: List.generate(
+                              widget.menuObject.children!.length,
+                              (index) {
+                                MenuObject currentWidgetInfo = widget
+                                    .menuObject
+                                    .children!
+                                    .elementAt(index);
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 5,
+                                  ),
+                                  child:
+                                      (currentWidgetInfo.navType ==
+                                          NavType.heading)
+                                      ? MenuTextHeadingWidget(
+                                          title: currentWidgetInfo.title,
+                                          isSelected: _selected,
+                                          index: index,
+                                        )
+                                      : (currentWidgetInfo.navType ==
+                                            NavType.spacing)
+                                      ? MenuTextSpacingWidget()
+                                      : MenuTextDefaultWidget(
+                                          title: currentWidgetInfo.title,
+                                          isSelected: _selected,
+                                          index: index,
+                                          icon: currentWidgetInfo.icon,
+                                        ),
+                                );
+                              },
+                            ),
+                          )
+                        : Container(),
+                  ),
+                ),
+              ),
 
-          ValueListenableBuilder(
-            valueListenable: _selected,
-            builder: (context, value, child) {
-              Widget childWidget = Container();
-              if (widget.menuObject.hasChildren()) {
-                MenuObject selectedWidgetInfo = widget.menuObject.children!
-                    .elementAt(_selected.value);
+              (_controller.status == AnimationStatus.completed)
+                  ? ValueListenableBuilder(
+                      valueListenable: _selected,
+                      builder: (context, value, child) {
+                        Widget childWidget = Container();
+                        if (widget.menuObject.hasChildren()) {
+                          MenuObject selectedMenuObject = widget
+                              .menuObject
+                              .children!
+                              .elementAt(_selected.value);
 
-                if (selectedWidgetInfo.hasChildren()) {
-                  childWidget = MenuObjectWidget(
-                    menuObject: selectedWidgetInfo,
-                  );
-                }
-                if (selectedWidgetInfo.hasDisplayElement()) {
-                  childWidget = selectedWidgetInfo.displayElement!;
-                }
-              }
+                          if (selectedMenuObject.hasChildren()) {
+                            childWidget = MenuObjectWidget(
+                              menuObject: selectedMenuObject,
+                            );
+                          }
+                          if (selectedMenuObject.hasDisplayElement()) {
+                            childWidget = selectedMenuObject.displayElement!;
+                          }
+                        }
 
-              return childWidget;
-            },
-          ),
-        ],
+                        return childWidget;
+                      },
+                    )
+                  : Container(),
+            ],
+          );
+        },
       ),
     );
   }
