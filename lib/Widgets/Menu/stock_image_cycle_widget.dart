@@ -1,8 +1,6 @@
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lenoir_website/Data/values.dart';
 
 class StockImageCycleWidget extends StatefulWidget {
   const StockImageCycleWidget({super.key});

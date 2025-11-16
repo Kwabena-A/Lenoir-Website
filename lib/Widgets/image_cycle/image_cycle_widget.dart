@@ -13,6 +13,7 @@ class ImageCycleWidget extends StatefulWidget {
 
 class _ImageCycleWidgetState extends State<ImageCycleWidget> {
   final ScrollController _controller = ScrollController();
+
   @override
   void dispose() {
     _controller.dispose();

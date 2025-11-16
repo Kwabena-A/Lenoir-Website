@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lenoir_website/Data/icons.dart';
 import 'package:lenoir_website/Widgets/Menu/menu_text_default_widget.dart';
 import 'package:lenoir_website/Widgets/Menu/menu_text_spacing_widget.dart';
 
@@ -47,13 +46,13 @@ class _MenuObjectWidgetState extends State<MenuObjectWidget>
       duration: Duration(milliseconds: 350),
     );
     _animationSlideIn = Tween(
-      begin: 300,
+      begin: 50,
       end: 0.0,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
     _animationOpacity = Tween(
       begin: 0.0,
       end: 1.0,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
     _controller.forward();
   }
@@ -64,6 +63,12 @@ class _MenuObjectWidgetState extends State<MenuObjectWidget>
     initAnimation();
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -84,7 +89,7 @@ class _MenuObjectWidgetState extends State<MenuObjectWidget>
                         ? Color(0xFF212121)
                         : Color(0xFF1c1c1c),
                     height: double.infinity,
-                    width: 300,
+                    width: MediaQuery.of(context).size.width / 5,
                     padding: EdgeInsets.only(
                       left: 20,
                       right: 20,
@@ -101,28 +106,21 @@ class _MenuObjectWidgetState extends State<MenuObjectWidget>
                                     .menuObject
                                     .children!
                                     .elementAt(index);
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 5,
-                                  ),
-                                  child:
-                                      (currentWidgetInfo.navType ==
-                                          NavType.heading)
-                                      ? MenuTextHeadingWidget(
-                                          title: currentWidgetInfo.title,
-                                          isSelected: _selected,
-                                          index: index,
-                                        )
-                                      : (currentWidgetInfo.navType ==
-                                            NavType.spacing)
-                                      ? MenuTextSpacingWidget()
-                                      : MenuTextDefaultWidget(
-                                          title: currentWidgetInfo.title,
-                                          isSelected: _selected,
-                                          index: index,
-                                          icon: currentWidgetInfo.icon,
-                                        ),
-                                );
+                                return (currentWidgetInfo.navType ==
+                                        NavType.heading)
+                                    ? MenuTextHeadingWidget(
+                                        title: currentWidgetInfo.title,
+                                        isSelected: _selected,
+                                        index: index,
+                                      )
+                                    : (currentWidgetInfo.navType ==
+                                          NavType.spacing)
+                                    ? MenuTextSpacingWidget()
+                                    : MenuTextDefaultWidget(
+                                        menuObject: currentWidgetInfo,
+                                        isSelected: _selected,
+                                        index: index,
+                                      );
                               },
                             ),
                           )

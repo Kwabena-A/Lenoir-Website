@@ -127,27 +127,6 @@ Image randomStockImage() {
   );
 }
 
-const List<String> carVersionFileNames = [
-  "2025_V3",
-  "2025_V4",
-  "2025_V5",
-  "2025_V6",
-];
-List<Image> precachedCarVersions = [];
-
-void initPrecachedImages(context) {
-  for (String fileName in carVersionFileNames) {
-    Image image = Image.asset(
-      "car_versions/$fileName.png",
-      fit: BoxFit.fitWidth,
-    );
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      precacheImage(image.image, context);
-    });
-    precachedCarVersions.add(image);
-  }
-}
-
 class MenuObject {
   final String title;
   final NavType navType;
@@ -156,6 +135,7 @@ class MenuObject {
   final Widget? displayElement;
   final Function? onTap;
   late final String? icon;
+  final int? scrollToPage;
 
   MenuObject({
     required this.title,
@@ -164,6 +144,7 @@ class MenuObject {
     this.children,
     this.displayElement,
     this.onTap,
+    this.scrollToPage,
   }) {
     if (navType == NavType.navTo) {
       icon = KIcons.rightIcon;
@@ -258,7 +239,7 @@ final MenuObjectWidget mainMenuObject = MenuObjectWidget(
       MenuObject(title: "", navType: NavType.heading),
       MenuObject(title: "Home", navType: NavType.none),
       ourCarMenu,
-      MenuObject(title: "About us", navType: NavType.scrollTo),
+      MenuObject(title: "About us", navType: NavType.scrollTo, scrollToPage: 1),
       MenuObject(title: "Schedule", navType: NavType.scrollTo),
       MenuObject(title: "Gallery", navType: NavType.navTo),
       MenuObject(title: "Socials", navType: NavType.link),

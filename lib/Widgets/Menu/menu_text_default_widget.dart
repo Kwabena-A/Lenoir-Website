@@ -1,21 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lenoir_website/Data/values.dart';
+import 'package:lenoir_website/Widgets/home_page_widget.dart';
 
 class MenuTextDefaultWidget extends StatelessWidget {
-  final String title;
+  final MenuObject menuObject;
   final ValueNotifier isSelected;
   final int index;
-  final String? icon;
-  final Function()? onTap;
 
   const MenuTextDefaultWidget({
     super.key,
-    required this.title,
+    required this.menuObject,
     required this.isSelected,
     required this.index,
-    this.icon,
-    this.onTap,
   });
+
+  void tappedWidget(BuildContext context) {
+    isSelected.value = index;
+    if (menuObject.onTap != null) {
+      menuObject.onTap!.call();
+    } else if (menuObject.scrollToPage != null) {
+      menuNav.value = false;
+      homePageScrollController.animateTo(
+        MediaQuery.of(context).size.height * menuObject.scrollToPage!,
+        duration: Duration(seconds: 1),
+        curve: Curves.ease,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,38 +35,37 @@ class MenuTextDefaultWidget extends StatelessWidget {
       valueListenable: isSelected,
       builder: (context, value, child) {
         return GestureDetector(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontFamily: "Zalando",
-                  color: (value == index) ? Colors.white : Color(0xFF8f8f8f),
-                  fontSize: 16,
+          onTap: () => tappedWidget(context),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  menuObject.title,
+                  style: TextStyle(
+                    fontFamily: "Zalando",
+                    color: (value == index) ? Colors.white : Color(0xFF8f8f8f),
+                    fontSize: 16,
+                  ),
                 ),
-              ),
-              Expanded(child: Container()),
+                Expanded(child: Container()),
 
-              // Icon?
-              (icon != null)
-                  ? SvgPicture.string(
-                      icon!,
-                      width: 20,
-                      height: 20,
-                      color: (value == index)
-                          ? Colors.white
-                          : Color(0xFF8f8f8f),
-                    )
-                  : Container(),
-            ],
+                // Icon?
+                (menuObject.icon != null)
+                    ? SvgPicture.string(
+                        menuObject.icon!,
+                        width: 20,
+                        height: 20,
+                        // ignore: deprecated_member_use
+                        color: (value == index)
+                            ? Colors.white
+                            : Color(0xFF8f8f8f),
+                      )
+                    : Container(),
+              ],
+            ),
           ),
-          onTap: () {
-            isSelected.value = index;
-            if (onTap != null) {
-              onTap!.call();
-            }
-          },
         );
       },
     );

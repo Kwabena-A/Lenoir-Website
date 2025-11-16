@@ -43,6 +43,12 @@ class _CarDisplayElementWidgetState extends State<CarDisplayElementWidget>
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Expanded(
       child: AnimatedBuilder(
@@ -50,37 +56,58 @@ class _CarDisplayElementWidgetState extends State<CarDisplayElementWidget>
         builder: (context, child) {
           return Opacity(
             opacity: _animationOpacity.value,
-            child: Stack(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 30),
-                  color: Color(0xb3000000),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Transform.translate(
-                        offset: Offset(0, -50),
-                        child: Image.asset("lenoir_background.png", scale: 0.1),
-                      ),
-                      SizedBox(height: 50),
-                      CarStats(drag: widget.drag, lift: widget.lift),
-                      SizedBox(height: 20),
+            child: Container(
+              color: Color(0xB8000000),
+              padding: EdgeInsets.symmetric(horizontal: 30),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        SizedBox(width: double.infinity),
+                        Positioned.fill(
+                          child: Transform.translate(
+                            offset: Offset(0, -50),
+                            child: Image.asset(
+                              "lenoir_background.png",
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
 
-                      CarDescription(
-                        heading: widget.heading,
-                        body: widget.body,
-                      ),
-                    ],
+                        Column(
+                          children: [
+                            Expanded(child: Container()),
+                            Expanded(
+                              flex: 2,
+                              child: Image.asset(
+                                "car_versions/${widget.carName}.png",
+                                fit: BoxFit.fitWidth,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Positioned.fill(
-                  top: 40,
-                  child: Image.asset(
-                    "car_versions/${widget.carName}.png",
-                    fit: BoxFit.fitWidth,
+
+                  Expanded(
+                    child: Column(
+                      children: [
+                        CarStats(drag: widget.drag, lift: widget.lift),
+                        SizedBox(height: 20),
+                        CarDescription(
+                          heading: widget.heading,
+                          body: widget.body,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },
