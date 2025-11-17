@@ -13,6 +13,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: WidgetTree());
+    return MaterialApp(
+      color: Colors.black,
+      debugShowCheckedModeBanner: false,
+      home: WidgetTree(),
+    );
   }
 }

@@ -65,12 +65,12 @@ flutter:
   fonts:
     - family: oddlini
       fonts:
-        - asset: assets/custom_fonts/oddlini.ttf
+        - asset: custom_fonts/oddlini.ttf
           style: normal
 
     - family: Zalando
       fonts:
-        - asset: assets/custom_fonts/ZalandoSansExpanded-VariableFont_wght.ttf
+        - asset: custom_fonts/ZalandoSansExpanded-VariableFont_wght.ttf
           style: normal
 
   # An image asset can refer to one or more resolution-specific "variants", see

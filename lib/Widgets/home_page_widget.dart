@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:lenoir_website/Widgets/image_cycle/image_cycle_widget.dart';
+import 'package:lenoir_website/Widgets/race_schedule/race_schedule_widget.dart';
 import 'package:lenoir_website/Widgets/team_info/team_info_widget.dart';
 
 final ScrollController homePageScrollController = ScrollController();
@@ -11,7 +12,9 @@ class HomePageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       controller: homePageScrollController,
-      child: Column(children: [ImageCycleWidget(), TeamInfoWidget()]),
+      child: Column(
+        children: [ImageCycleWidget(), TeamInfoWidget(), RaceScheduleWidget()],
+      ),
     );
   }
 }
