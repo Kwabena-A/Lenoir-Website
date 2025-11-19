@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,23 @@ class CountDownWidget extends StatefulWidget {
 }
 
 class _CountDownWidgetState extends State<CountDownWidget> {
+  late Timer updateCounterTimer;
+
+  @override
+  void initState() {
+    updateCounterTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {});
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    updateCounterTimer.cancel();
+    super.dispose();
+  }
+
   int daysUntilRace() {
     int currentDay = DateTime.now().month;
     int daysUntil = 0;
@@ -54,55 +72,149 @@ class _CountDownWidgetState extends State<CountDownWidget> {
     return display;
   }
 
-  late Timer updateCounterTimer;
-
-  @override
-  void initState() {
-    updateCounterTimer = Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {});
-    });
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    updateCounterTimer.cancel();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Stack(
+      alignment: Alignment.topLeft,
       children: [
-        Padding(
-          padding: EdgeInsets.only(left: 50),
-          child: Text(
-            "Time Until Next Race",
-            style: TextStyle(
-              fontFamily: "oddlini",
-              fontSize: 12,
-              color: Colors.white,
+        Transform.translate(
+          offset: Offset(0, 0),
+          child: Transform.scale(
+            alignment: Alignment.topLeft,
+            scale: 0.8,
+            child: ClipPath(
+              clipper: TrapezoidClipper(),
+              child: Container(
+                width: 450,
+                height: 80,
+                child: Image.asset("noise_texture.png", fit: BoxFit.cover),
+              ),
             ),
           ),
         ),
-        Stack(
-          alignment: Alignment.center,
+
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              width: 450,
-              height: 75,
-              child: Image.asset("countdown_background.png", fit: BoxFit.fill),
+            Padding(
+              padding: EdgeInsets.only(left: 50),
+              child: Text(
+                "Time Until Next Race",
+                style: TextStyle(
+                  fontFamily: "oddlini",
+                  fontSize: 12,
+                  color: Colors.white,
+                ),
+              ),
             ),
-            Text(
-              "${displayTime(daysUntilRace())}:${displayTime(hoursUntilRace())}:${displayTime(minutesUntilRace())}:${displayTime(secondsUntilRace())}",
-              style: TextStyle(fontFamily: "oddlini", fontSize: 40),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                ClipPath(
+                  clipper: TrapezoidClipper(),
+                  child: Container(color: Colors.white, width: 450, height: 80),
+                ),
+                Row(
+                  children: [
+                    TimeElement(
+                      currentTime: displayTime(daysUntilRace()),
+                      metric: "DD",
+                    ),
+                    TimeElement(currentTime: ":", metric: ""),
+                    TimeElement(
+                      currentTime: displayTime(hoursUntilRace()),
+                      metric: "HH",
+                    ),
+                    TimeElement(currentTime: ":", metric: ""),
+                    TimeElement(
+                      currentTime: displayTime(minutesUntilRace()),
+                      metric: "MM",
+                    ),
+                    TimeElement(currentTime: ":", metric: ""),
+                    TimeElement(
+                      currentTime: displayTime(secondsUntilRace()),
+                      metric: "SS",
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
       ],
     );
+  }
+}
+
+class TimeElement extends StatelessWidget {
+  final String currentTime;
+  final String metric;
+  const TimeElement({
+    super.key,
+    required this.currentTime,
+    required this.metric,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          currentTime,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontFamily: "oddlini", fontSize: 40, height: 0),
+        ),
+        SizedBox(height: 0),
+        Text(
+          metric,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: "Zalando",
+            fontSize: 20,
+            color: Colors.grey,
+            height: 0,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class Colon extends StatelessWidget {
+  const Colon({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 40),
+      child: Text(
+        ":",
+        style: TextStyle(fontFamily: "Zalando", fontSize: 40, height: 0),
+      ),
+    );
+  }
+}
+
+class TrapezoidClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final Path path = Path();
+
+    double w = size.width;
+    double h = size.height;
+
+    path.lineTo(50, 0);
+    path.lineTo(0, h);
+    path.lineTo(w - 50, h);
+    path.lineTo(w, 0);
+    path.lineTo(0, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false;
   }
 }
