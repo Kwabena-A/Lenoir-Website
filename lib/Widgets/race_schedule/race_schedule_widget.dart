@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lenoir_website/Widgets/race_schedule/schedule_cycle_widget.dart';
 
 import 'count_down_widget.dart';
 
@@ -10,14 +11,13 @@ class RaceScheduleWidget extends StatelessWidget {
     return Container(
       color: Colors.black,
       width: double.infinity,
-      height: MediaQuery.of(context).size.height / 1.5,
+      height: MediaQuery.of(context).size.height * 0.7,
       alignment: Alignment.topLeft,
-      child: Stack(
+      padding: const EdgeInsets.only(top: 40),
+      child: Column(
         children: [
-          Container(
-            margin: EdgeInsets.only(top: 50),
-            height: 100,
-            padding: const EdgeInsets.symmetric(horizontal: 75.0),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 75.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -34,6 +34,8 @@ class RaceScheduleWidget extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(height: 50),
+          ScheduleCycleWidget(),
         ],
       ),
     );

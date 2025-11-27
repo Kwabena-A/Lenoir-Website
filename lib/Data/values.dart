@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:lenoir_website/Widgets/Menu/car_display_element_widget.dart';
 import 'package:lenoir_website/Widgets/Menu/menu_object_widget.dart';
+import 'package:lenoir_website/Widgets/race_schedule/schedule_cycle_object_widget.dart';
 
 import '../Widgets/image_cycle/cycle_object_widget.dart';
 import '../Widgets/team_info/person_info_widget.dart';
@@ -246,3 +247,13 @@ final MenuObjectWidget mainMenuObject = MenuObjectWidget(
     ],
   ),
 );
+
+List<ScheduleCycleObjectWidget> schedule = [
+  ScheduleCycleObjectWidget(
+    title: "Car Reveal",
+    date: "12 December",
+    directory: "youtube.com",
+  ),
+  ScheduleCycleObjectWidget(title: "Sponsor Announcement", date: "4 January"),
+  ScheduleCycleObjectWidget(title: "Qualifiers Portfolio", date: "05 April"),
+];

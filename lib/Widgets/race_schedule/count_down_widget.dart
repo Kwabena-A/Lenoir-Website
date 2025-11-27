@@ -113,7 +113,7 @@ class _CountDownWidgetState extends State<CountDownWidget> {
               children: [
                 ClipPath(
                   clipper: TrapezoidClipper(),
-                  child: Container(color: Colors.white, width: 450, height: 80),
+                  child: Container(color: Colors.white, width: 425, height: 80),
                 ),
                 Row(
                   children: [
@@ -158,39 +158,30 @@ class TimeElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          currentTime,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontFamily: "oddlini", fontSize: 40, height: 0),
-        ),
-        SizedBox(height: 0),
-        Text(
-          metric,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: "Zalando",
-            fontSize: 20,
-            color: Colors.grey,
-            height: 0,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class Colon extends StatelessWidget {
-  const Colon({super.key});
-
-  @override
-  Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 40),
-      child: Text(
-        ":",
-        style: TextStyle(fontFamily: "Zalando", fontSize: 40, height: 0),
+      padding: const EdgeInsets.symmetric(horizontal: 3.0),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Text(
+            currentTime,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontFamily: "oddlini", fontSize: 40, height: 0),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 50.0),
+            child: Text(
+              metric,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: "Zalando",
+                fontSize: 20,
+                color: Colors.grey,
+                height: 0,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -204,9 +195,11 @@ class TrapezoidClipper extends CustomClipper<Path> {
     double w = size.width;
     double h = size.height;
 
-    path.lineTo(50, 0);
+    const double edgeDifference = 25;
+
+    path.lineTo(edgeDifference, 0);
     path.lineTo(0, h);
-    path.lineTo(w - 50, h);
+    path.lineTo(w - edgeDifference, h);
     path.lineTo(w, 0);
     path.lineTo(0, 0);
     path.close();
