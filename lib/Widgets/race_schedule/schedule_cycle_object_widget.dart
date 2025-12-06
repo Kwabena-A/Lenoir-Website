@@ -9,10 +9,13 @@ class ScheduleCycleObjectWidget extends StatelessWidget {
 
   final String? directory;
 
+  final String picture;
+
   const ScheduleCycleObjectWidget({
     super.key,
     required this.title,
     required this.date,
+    required this.picture,
     this.directory,
   });
 
@@ -36,7 +39,11 @@ class ScheduleCycleObjectWidget extends StatelessWidget {
               fontSize: 20,
             ),
           ),
-          Container(color: Colors.white, height: 200, width: 630),
+          SizedBox(
+            height: 200,
+            width: 630,
+            child: Image.asset(picture, fit: BoxFit.cover),
+          ),
           SizedBox(height: 20),
           (directory != null)
               ? SizedBox(

@@ -250,10 +250,21 @@ final MenuObjectWidget mainMenuObject = MenuObjectWidget(
 
 List<ScheduleCycleObjectWidget> schedule = [
   ScheduleCycleObjectWidget(
-    title: "Car Reveal",
+    title: "Qualifiers Deadline",
+    date: "05 April",
+    picture: "schedule_cycle/nfs_inspo.png",
+  ),
+  ScheduleCycleObjectWidget(
+    title: "2025 Reveal",
     date: "12 December",
     directory: "youtube.com",
+    picture: "schedule_cycle/Covered.png",
   ),
-  ScheduleCycleObjectWidget(title: "Sponsor Announcement", date: "4 January"),
-  ScheduleCycleObjectWidget(title: "Qualifiers Portfolio", date: "05 April"),
+  ScheduleCycleObjectWidget(
+    title: "Social Media Launch",
+    date: "4 January",
+    picture: "schedule_cycle/track_picture_2025.png",
+  ),
 ];
+
+final ScrollController scheduleScrollController = ScrollController();

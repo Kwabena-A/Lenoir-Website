@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lenoir_website/Data/values.dart';
 import 'package:lenoir_website/Widgets/race_schedule/schedule_cycle_object_widget.dart';
+import 'package:lenoir_website/Widgets/race_schedule/scroll_arrow_widget.dart';
 
 class ScheduleCycleWidget extends StatefulWidget {
   const ScheduleCycleWidget({super.key});
@@ -12,19 +13,52 @@ class ScheduleCycleWidget extends StatefulWidget {
 class _ScheduleCycleWidgetState extends State<ScheduleCycleWidget> {
   @override
   Widget build(BuildContext context) {
-    return ClipRect(
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: [
-            SizedBox(width: 370),
-            ...List.generate(schedule.length, (index) {
-              return schedule.elementAt(index);
-            }),
-            SizedBox(width: 370),
-          ],
+    return Stack(
+      children: [
+        ClipRect(
+          child: SingleChildScrollView(
+            controller: scheduleScrollController,
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                SizedBox(width: 370),
+                ...List.generate(schedule.length, (index) {
+                  return schedule.elementAt(index);
+                }),
+                SizedBox(width: 370),
+              ],
+            ),
+          ),
         ),
-      ),
+        Positioned.fill(
+          child: IgnorePointer(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.black,
+                    Colors.transparent,
+                    Colors.transparent,
+                    Colors.black,
+                  ],
+                  stops: [0, 0.2, 0.8, 1],
+                  begin: AlignmentGeometry.centerLeft,
+                  end: AlignmentGeometry.centerRight,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Positioned.fill(
+          child: Row(
+            children: [
+              ScrollArrowWidget(side: ScrollArrowSide.left),
+              Expanded(child: Container()),
+              ScrollArrowWidget(side: ScrollArrowSide.right),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
