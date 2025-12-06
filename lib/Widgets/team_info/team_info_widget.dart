@@ -14,6 +14,7 @@ class TeamInfoWidget extends StatefulWidget {
 class _TeamInfoWidgetState extends State<TeamInfoWidget> {
   @override
   Widget build(BuildContext context) {
+    teamMembers.shuffle();
     return SizedBox(
       height: MediaQuery.of(context).size.height - 50,
       child: Column(

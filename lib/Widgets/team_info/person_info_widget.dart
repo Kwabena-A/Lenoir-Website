@@ -60,34 +60,39 @@ class _PersonInfoState extends State<PersonInfo>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return Expanded(
-          child: MouseRegion(
-            onEnter: (event) {
-              currentPerson.value = widget;
-              animateForward();
-            },
-            onExit: (event) {
-              animateReverse();
-            },
-            child: GestureDetector(
-              onTap: () {
-                currentPerson.value = widget;
-                animateForward();
-              },
-              child: ClipRect(
-                child: Transform.scale(
-                  scale: _animation.value,
-                  child: SizedBox(
-                    height: double.infinity,
-                    child: Image.asset(widget.image, fit: BoxFit.cover),
+    return ValueListenableBuilder(
+      valueListenable: currentPerson,
+      builder: (context, value, child) {
+        if (currentPerson.value == widget) {
+          animateForward();
+        } else {
+          animateReverse();
+        }
+        return AnimatedBuilder(
+          animation: _controller,
+          builder: (context, child) {
+            return Expanded(
+              child: MouseRegion(
+                onEnter: (event) {
+                  currentPerson.value = widget;
+                },
+                child: GestureDetector(
+                  onTap: () {
+                    currentPerson.value = widget;
+                  },
+                  child: ClipRect(
+                    child: Transform.scale(
+                      scale: _animation.value,
+                      child: SizedBox(
+                        height: double.infinity,
+                        child: Image.asset(widget.image, fit: BoxFit.cover),
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     );

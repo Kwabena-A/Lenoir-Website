@@ -73,28 +73,28 @@ void resetTimings() {
 List<PersonInfo> teamMembers = [
   PersonInfo(
     name: "Imran Mikael",
-    image: "team_members/placeholder.png",
+    image: "team_members/imran.png",
     role: "Team Leader",
     description:
         "Coordinates the team’s activities, ensuring deadlines, meetings, and tasks are met. Acts as the main point of contact between the team, mentors, and competition organizers.",
   ),
   PersonInfo(
     name: "Kwabena Aboagye",
-    image: "team_members/placeholder.png",
+    image: "team_members/kb.png",
     role: "Design Engineer",
     description:
         "Creates the 3D model of the car using CAD software, optimizing for speed, weight, and aerodynamics. Works closely with the manufacturing team to ensure designs are feasible.",
   ),
   PersonInfo(
     name: "Ali Firman",
-    image: "team_members/placeholder.png",
+    image: "team_members/ali.png",
     role: "Graphic Design",
     description:
         "Designs the team logo, livery, and presentation materials. Maintains the team’s visual identity across all promotional content.",
   ),
   PersonInfo(
     name: "Hisyam Arrazi",
-    image: "team_members/placeholder.png",
+    image: "team_members/hisyam.png",
     role: "Business Man",
     description:
         "Identifies and secures sponsorships while promoting the team externally. Prepares proposals and maintains partner relations.",
