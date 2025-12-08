@@ -19,15 +19,16 @@ class _ScheduleCycleWidgetState extends State<ScheduleCycleWidget> {
       children: [
         ClipRect(
           child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(
+              horizontal: (MediaQuery.of(context).size.width * 0.26),
+            ),
             controller: scheduleScrollController,
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                SizedBox(width: 370),
                 ...List.generate(schedule.length, (index) {
                   return schedule.elementAt(index);
                 }),
-                SizedBox(width: 370),
               ],
             ),
           ),

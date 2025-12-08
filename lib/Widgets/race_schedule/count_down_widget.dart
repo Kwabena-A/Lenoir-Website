@@ -98,9 +98,7 @@ class _CountDownWidgetState extends State<CountDownWidget>
               _controllerWhiteOffsetExit.addListener(() {
                 if (_controllerWhiteOffsetExit.status ==
                     AnimationStatus.completed) {
-                  _controllerWhiteOffsetExit.reset();
-                  _controllerRaceDayOffset.reset();
-                  _controllerWhiteOffsetEntry.reset();
+                  resetRaceDay();
                 }
               });
             }
@@ -108,6 +106,12 @@ class _CountDownWidgetState extends State<CountDownWidget>
         }
       });
     }
+  }
+
+  void resetRaceDay() {
+    _controllerWhiteOffsetExit.reset();
+    _controllerRaceDayOffset.reset();
+    _controllerWhiteOffsetEntry.reset();
   }
 
   @override
@@ -171,6 +175,7 @@ class _CountDownWidgetState extends State<CountDownWidget>
         if (info.visibleFraction > 0) {
           animateRaceDay();
         } else {
+          resetRaceDay();
           showCountdown.value = false;
         }
       },

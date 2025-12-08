@@ -16,6 +16,7 @@ class ScrollArrowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double scrollStep = MediaQuery.of(context).size.width * 0.48;
     return SizedBox(
       height: double.infinity,
       width: 40,
@@ -28,8 +29,8 @@ class ScrollArrowWidget extends StatelessWidget {
         ),
         onPressed: () => scrollController.animateTo(
           (side == ScrollArrowSide.right)
-              ? scrollController.position.pixels + 690
-              : scrollController.position.pixels - 690,
+              ? scrollController.position.pixels + scrollStep
+              : scrollController.position.pixels - scrollStep,
           duration: Duration(milliseconds: 600),
           curve: Curves.easeInOut,
         ),

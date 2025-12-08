@@ -246,7 +246,7 @@ final MenuObjectWidget mainMenuObject = MenuObjectWidget(
       MenuObject(title: "Home", navType: NavType.none),
       ourCarMenu,
       MenuObject(title: "About us", navType: NavType.scrollTo, scrollToPage: 1),
-      MenuObject(title: "Schedule", navType: NavType.scrollTo),
+      MenuObject(title: "Schedule", navType: NavType.scrollTo, scrollToPage: 2),
       MenuObject(title: "Gallery", navType: NavType.navTo),
       MenuObject(title: "Socials", navType: NavType.link),
     ],
