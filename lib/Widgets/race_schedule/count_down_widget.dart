@@ -4,6 +4,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lenoir_website/Data/values.dart';
+import 'package:visibility_detector_widget/visibility_detector_widget.dart';
 
 class CountDownWidget extends StatefulWidget {
   const CountDownWidget({super.key});
@@ -13,8 +15,19 @@ class CountDownWidget extends StatefulWidget {
 }
 
 class _CountDownWidgetState extends State<CountDownWidget>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late Timer updateCounterTimer;
+
+  late AnimationController _controllerRaceDayOffset;
+  late Animation _animationRaceDayOffset;
+
+  late AnimationController _controllerWhiteOffsetEntry;
+  late Animation _animationWhiteOffsetEntry;
+
+  late AnimationController _controllerWhiteOffsetExit;
+  late Animation _animationWhiteOffsetExit;
+
+  late Listenable _mergedWhite;
 
   @override
   void initState() {
@@ -22,12 +35,87 @@ class _CountDownWidgetState extends State<CountDownWidget>
       setState(() {});
     });
 
+    _controllerWhiteOffsetEntry = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _animationWhiteOffsetEntry = Tween(
+        begin: MediaQuery.of(context).size.width * -1,
+        end: 0.0,
+      ).animate(_controllerWhiteOffsetEntry);
+    });
+
+    _controllerRaceDayOffset = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+    );
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _animationRaceDayOffset =
+          Tween(
+            begin: MediaQuery.of(context).size.width * -1,
+            end: MediaQuery.of(context).size.width,
+          ).animate(
+            CurvedAnimation(
+              parent: _controllerRaceDayOffset,
+              curve: Curves.easeInOut,
+            ),
+          );
+    });
+
+    _controllerWhiteOffsetExit = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _animationWhiteOffsetExit = Tween(
+        begin: 0.0,
+        end: MediaQuery.of(context).size.width,
+      ).animate(_controllerWhiteOffsetExit);
+    });
+
+    _mergedWhite = Listenable.merge([
+      _controllerWhiteOffsetEntry,
+      _controllerWhiteOffsetExit,
+    ]);
+
     super.initState();
+  }
+
+  void animateRaceDay() {
+    if (_controllerWhiteOffsetEntry.status != AnimationStatus.forward) {
+      _controllerWhiteOffsetEntry.forward();
+      _controllerWhiteOffsetEntry.addListener(() {
+        if (_controllerWhiteOffsetEntry.status == AnimationStatus.completed) {
+          showCountdown.value = true;
+          _controllerRaceDayOffset.forward();
+          _controllerRaceDayOffset.addListener(() {
+            if (_controllerRaceDayOffset.status == AnimationStatus.completed) {
+              _controllerWhiteOffsetExit.forward();
+              _controllerWhiteOffsetExit.addListener(() {
+                if (_controllerWhiteOffsetExit.status ==
+                    AnimationStatus.completed) {
+                  _controllerWhiteOffsetExit.reset();
+                  _controllerRaceDayOffset.reset();
+                  _controllerWhiteOffsetEntry.reset();
+                }
+              });
+            }
+          });
+        }
+      });
+    }
   }
 
   @override
   void dispose() {
     updateCounterTimer.cancel();
+    _controllerWhiteOffsetEntry.dispose();
+    _controllerWhiteOffsetExit.dispose();
+    _controllerRaceDayOffset.dispose();
     super.dispose();
   }
 
@@ -77,22 +165,90 @@ class _CountDownWidgetState extends State<CountDownWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        TimeElement(currentTime: displayTime(daysUntilRace()), metric: "DD"),
-        TimeElement(currentTime: ":", metric: ""),
-        TimeElement(currentTime: displayTime(hoursUntilRace()), metric: "HH"),
-        TimeElement(currentTime: ":", metric: ""),
-        TimeElement(currentTime: displayTime(minutesUntilRace()), metric: "MM"),
-        TimeElement(currentTime: ":", metric: ""),
-        TimeElement(currentTime: displayTime(secondsUntilRace()), metric: "SS"),
-      ],
+    return VisibilityDetector(
+      key: Key("race_day"),
+      onVisibilityChanged: (info) {
+        if (info.visibleFraction > 0) {
+          animateRaceDay();
+        } else {
+          showCountdown.value = false;
+        }
+      },
+      child: Stack(
+        alignment: Alignment.center,
+        clipBehavior: Clip.none,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TimeElement(
+                currentTime: displayTime(daysUntilRace()),
+                metric: "DD",
+              ),
+              TimeElement(currentTime: ":", metric: ""),
+              TimeElement(
+                currentTime: displayTime(hoursUntilRace()),
+                metric: "HH",
+              ),
+              TimeElement(currentTime: ":", metric: ""),
+              TimeElement(
+                currentTime: displayTime(minutesUntilRace()),
+                metric: "MM",
+              ),
+              TimeElement(currentTime: ":", metric: ""),
+              TimeElement(
+                currentTime: displayTime(secondsUntilRace()),
+                metric: "SS",
+              ),
+            ],
+          ),
+
+          Positioned.fill(
+            child: AnimatedBuilder(
+              animation: _mergedWhite,
+              builder: (context, child) {
+                return Transform.translate(
+                  offset: Offset(
+                    _animationWhiteOffsetEntry.value +
+                        _animationWhiteOffsetExit.value,
+                    0,
+                  ),
+                  child: Container(color: Colors.white),
+                );
+              },
+            ),
+          ),
+
+          Positioned.fill(
+            child: AnimatedBuilder(
+              animation: _animationRaceDayOffset,
+              builder: (context, child) {
+                return Transform.translate(
+                  offset: Offset(_animationRaceDayOffset.value, 0),
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.only(top: 15),
+                    child: Text(
+                      "RACE DAY",
+                      style: TextStyle(
+                        fontFamily: "oddlini",
+                        fontSize: 200,
+                        height: 0,
+                        fontWeight: FontWeight.w100,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
-class TimeElement extends StatelessWidget {
+class TimeElement extends StatefulWidget {
   final String currentTime;
   final String metric;
   const TimeElement({
@@ -102,37 +258,47 @@ class TimeElement extends StatelessWidget {
   });
 
   @override
+  State<TimeElement> createState() => _TimeElementState();
+}
+
+class _TimeElementState extends State<TimeElement> {
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 3.0),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 150.0),
-            child: Text(
-              metric,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: "Zalando",
-                fontSize: 20,
-                color: Color(0xE4FFFFFF),
-                height: 0,
+    return ValueListenableBuilder(
+      valueListenable: showCountdown,
+      builder: (context, isVisible, child) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 3.0),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 150.0),
+                child: Text(
+                  widget.metric,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: "Zalando",
+                    fontSize: 20,
+                    color: (isVisible) ? Color(0xE4FFFFFF) : Colors.transparent,
+                    height: 0,
+                  ),
+                ),
               ),
-            ),
+              Text(
+                widget.currentTime,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.getFont(
+                  "Barlow Condensed",
+                  fontSize: 150,
+                  color: (isVisible) ? Colors.white : Colors.transparent,
+                  height: 0,
+                ),
+              ),
+            ],
           ),
-          Text(
-            currentTime,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.getFont(
-              "Barlow Condensed",
-              fontSize: 150,
-              color: Colors.white,
-              height: 0,
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

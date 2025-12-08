@@ -14,7 +14,7 @@ import 'icons.dart';
 
 final ScrollController homePageScrollController = ScrollController();
 
-int scrollProgress = 0;
+ValueNotifier showCountdown = ValueNotifier(false);
 
 final List<CycleObject> headlines = [
   CycleObject(
