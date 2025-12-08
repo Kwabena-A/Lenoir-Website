@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:country_icons/country_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lenoir_website/Widgets/race_schedule/count_down_widget.dart';
 
 class ScheduleCycleObjectWidget extends StatelessWidget {
   final String title;
@@ -32,8 +33,17 @@ class ScheduleCycleObjectWidget extends StatelessWidget {
 
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(icon, color: Colors.white, size: 30),
+              ClipPath(
+                clipper: TrapezoidClipper(),
+                child: Container(
+                  height: 40,
+                  width: 80,
+                  color: Colors.white,
+                  child: Icon(icon, color: Colors.black, size: 30),
+                ),
+              ),
               SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,5 +111,30 @@ class ScheduleCycleObjectWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class TrapezoidClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final Path path = Path();
+
+    double w = size.width;
+    double h = size.height;
+
+    double edgeDifference = (w * 0.25);
+
+    path.lineTo(edgeDifference, 0);
+    path.lineTo(0, h);
+    path.lineTo(w - edgeDifference, h);
+    path.lineTo(w, 0);
+    path.lineTo(0, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false;
   }
 }

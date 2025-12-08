@@ -258,7 +258,7 @@ List<ScheduleCycleObjectWidget> schedule = [
     title: "Qualifiers Deadline",
     date: "05 April",
     picture: "schedule_cycle/nfs_inspo.png",
-    icon: Icons.flag_circle_sharp,
+    icon: Icons.flag,
   ),
   ScheduleCycleObjectWidget(
     title: "2025 Reveal",

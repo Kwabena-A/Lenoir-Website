@@ -9,30 +9,21 @@ class RaceScheduleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFF0F0F0F),
-      alignment: Alignment.topLeft,
-      padding: const EdgeInsets.only(top: 40),
+      color: Colors.black,
       child: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 75.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "RACE SCHEDULE",
-                  style: TextStyle(
-                    fontFamily: "oddlini",
-                    color: Colors.white,
-                    fontSize: 33,
-                  ),
-                ),
-                Expanded(child: Container()),
-                CountDownWidget(),
-              ],
+          Text(
+            "RACE SCHEDULE",
+            style: TextStyle(
+              fontFamily: "oddlini",
+              color: Colors.white,
+              fontSize: 33,
             ),
           ),
-          SizedBox(height: 50),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20.0),
+            child: CountDownWidget(),
+          ),
           ScheduleCycleWidget(),
         ],
       ),

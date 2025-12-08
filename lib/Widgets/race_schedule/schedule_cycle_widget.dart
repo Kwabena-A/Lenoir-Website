@@ -38,10 +38,10 @@ class _ScheduleCycleWidgetState extends State<ScheduleCycleWidget> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Color(0xFF0F0F0F),
+                    Colors.black,
                     Colors.transparent,
                     Colors.transparent,
-                    Color(0xFF0F0F0F),
+                    Colors.black,
                   ],
                   stops: [0, 0.2, 0.8, 1],
                   begin: AlignmentGeometry.centerLeft,

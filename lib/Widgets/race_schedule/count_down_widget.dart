@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CountDownWidget extends StatefulWidget {
   const CountDownWidget({super.key});
@@ -10,7 +12,8 @@ class CountDownWidget extends StatefulWidget {
   State<CountDownWidget> createState() => _CountDownWidgetState();
 }
 
-class _CountDownWidgetState extends State<CountDownWidget> {
+class _CountDownWidgetState extends State<CountDownWidget>
+    with SingleTickerProviderStateMixin {
   late Timer updateCounterTimer;
 
   @override
@@ -74,74 +77,16 @@ class _CountDownWidgetState extends State<CountDownWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.topLeft,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Transform.translate(
-          offset: Offset(0, 0),
-          child: Transform.scale(
-            alignment: Alignment.topLeft,
-            scale: 0.8,
-            child: ClipPath(
-              clipper: TrapezoidClipper(),
-              child: Container(
-                width: 450,
-                height: 80,
-                child: Image.asset("noise_texture.png", fit: BoxFit.cover),
-              ),
-            ),
-          ),
-        ),
-
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 50),
-              child: Text(
-                "Time Until Next Race",
-                style: TextStyle(
-                  fontFamily: "oddlini",
-                  fontSize: 12,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                ClipPath(
-                  clipper: TrapezoidClipper(),
-                  child: Container(color: Colors.white, width: 425, height: 80),
-                ),
-                Row(
-                  children: [
-                    TimeElement(
-                      currentTime: displayTime(daysUntilRace()),
-                      metric: "DD",
-                    ),
-                    TimeElement(currentTime: ":", metric: ""),
-                    TimeElement(
-                      currentTime: displayTime(hoursUntilRace()),
-                      metric: "HH",
-                    ),
-                    TimeElement(currentTime: ":", metric: ""),
-                    TimeElement(
-                      currentTime: displayTime(minutesUntilRace()),
-                      metric: "MM",
-                    ),
-                    TimeElement(currentTime: ":", metric: ""),
-                    TimeElement(
-                      currentTime: displayTime(secondsUntilRace()),
-                      metric: "SS",
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
+        TimeElement(currentTime: displayTime(daysUntilRace()), metric: "DD"),
+        TimeElement(currentTime: ":", metric: ""),
+        TimeElement(currentTime: displayTime(hoursUntilRace()), metric: "HH"),
+        TimeElement(currentTime: ":", metric: ""),
+        TimeElement(currentTime: displayTime(minutesUntilRace()), metric: "MM"),
+        TimeElement(currentTime: ":", metric: ""),
+        TimeElement(currentTime: displayTime(secondsUntilRace()), metric: "SS"),
       ],
     );
   }
@@ -163,51 +108,31 @@ class TimeElement extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Text(
-            currentTime,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontFamily: "oddlini", fontSize: 40, height: 0),
-          ),
           Padding(
-            padding: const EdgeInsets.only(top: 50.0),
+            padding: const EdgeInsets.only(bottom: 150.0),
             child: Text(
               metric,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: "Zalando",
                 fontSize: 20,
-                color: Colors.grey,
+                color: Color(0xE4FFFFFF),
                 height: 0,
               ),
+            ),
+          ),
+          Text(
+            currentTime,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.getFont(
+              "Barlow Condensed",
+              fontSize: 150,
+              color: Colors.white,
+              height: 0,
             ),
           ),
         ],
       ),
     );
-  }
-}
-
-class TrapezoidClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final Path path = Path();
-
-    double w = size.width;
-    double h = size.height;
-
-    const double edgeDifference = 25;
-
-    path.lineTo(edgeDifference, 0);
-    path.lineTo(0, h);
-    path.lineTo(w - edgeDifference, h);
-    path.lineTo(w, 0);
-    path.lineTo(0, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
   }
 }
