@@ -9,9 +9,7 @@ class RaceScheduleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black,
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.7,
+      color: Color(0xFF0F0F0F),
       alignment: Alignment.topLeft,
       padding: const EdgeInsets.only(top: 40),
       child: Column(

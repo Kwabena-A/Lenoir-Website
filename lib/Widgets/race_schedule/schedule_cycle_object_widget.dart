@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:country_icons/country_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lenoir_website/Data/icons.dart';
 
 class ScheduleCycleObjectWidget extends StatelessWidget {
   final String title;
@@ -11,11 +11,14 @@ class ScheduleCycleObjectWidget extends StatelessWidget {
 
   final String picture;
 
+  final IconData icon;
+
   const ScheduleCycleObjectWidget({
     super.key,
     required this.title,
     required this.date,
     required this.picture,
+    required this.icon,
     this.directory,
   });
 
@@ -23,22 +26,38 @@ class ScheduleCycleObjectWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30),
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+
         children: [
-          Text(
-            date,
-            style: TextStyle(color: Colors.white, fontFamily: "oddlini"),
+          Row(
+            children: [
+              Icon(icon, color: Colors.white, size: 30),
+              SizedBox(width: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    date,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "oddlini",
+                    ),
+                  ),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "oddlini",
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          SizedBox(height: 7),
-          Text(
-            title,
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: "oddlini",
-              fontSize: 20,
-            ),
-          ),
+
           SizedBox(
             height: 200,
             width: 630,
@@ -51,7 +70,7 @@ class ScheduleCycleObjectWidget extends StatelessWidget {
                   width: 630,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+
                     children: [
                       Text(
                         "Learn More",
