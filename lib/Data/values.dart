@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:math';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lenoir_website/Widgets/Menu/car_display_element_widget.dart';
 import 'package:lenoir_website/Widgets/Menu/menu_object_widget.dart';
@@ -10,6 +11,10 @@ import 'package:lenoir_website/Widgets/race_schedule/schedule_cycle_object_widge
 import '../Widgets/image_cycle/cycle_object_widget.dart';
 import '../Widgets/team_info/person_info_widget.dart';
 import 'icons.dart';
+
+final ScrollController homePageScrollController = ScrollController();
+
+int scrollProgress = 0;
 
 final List<CycleObject> headlines = [
   CycleObject(
@@ -266,5 +271,3 @@ List<ScheduleCycleObjectWidget> schedule = [
     picture: "schedule_cycle/track_picture_2025.png",
   ),
 ];
-
-final ScrollController scheduleScrollController = ScrollController();

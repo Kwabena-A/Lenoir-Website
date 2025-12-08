@@ -6,7 +6,13 @@ enum ScrollArrowSide { left, right }
 
 class ScrollArrowWidget extends StatelessWidget {
   final ScrollArrowSide side;
-  const ScrollArrowWidget({super.key, required this.side});
+
+  final ScrollController scrollController;
+  const ScrollArrowWidget({
+    super.key,
+    required this.side,
+    required this.scrollController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +26,10 @@ class ScrollArrowWidget extends StatelessWidget {
               ? TextDirection.rtl
               : TextDirection.ltr,
         ),
-        onPressed: () => scheduleScrollController.animateTo(
+        onPressed: () => scrollController.animateTo(
           (side == ScrollArrowSide.right)
-              ? scheduleScrollController.position.pixels + 690
-              : scheduleScrollController.position.pixels - 690,
+              ? scrollController.position.pixels + 690
+              : scrollController.position.pixels - 690,
           duration: Duration(milliseconds: 600),
           curve: Curves.easeInOut,
         ),

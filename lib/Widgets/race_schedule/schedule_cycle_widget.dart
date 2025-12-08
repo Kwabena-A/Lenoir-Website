@@ -11,6 +11,8 @@ class ScheduleCycleWidget extends StatefulWidget {
 }
 
 class _ScheduleCycleWidgetState extends State<ScheduleCycleWidget> {
+  ScrollController scheduleScrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -52,9 +54,15 @@ class _ScheduleCycleWidgetState extends State<ScheduleCycleWidget> {
         Positioned.fill(
           child: Row(
             children: [
-              ScrollArrowWidget(side: ScrollArrowSide.left),
+              ScrollArrowWidget(
+                side: ScrollArrowSide.left,
+                scrollController: scheduleScrollController,
+              ),
               Expanded(child: Container()),
-              ScrollArrowWidget(side: ScrollArrowSide.right),
+              ScrollArrowWidget(
+                side: ScrollArrowSide.right,
+                scrollController: scheduleScrollController,
+              ),
             ],
           ),
         ),

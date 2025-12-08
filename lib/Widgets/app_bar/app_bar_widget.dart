@@ -4,6 +4,7 @@ import 'package:lenoir_website/Widgets/home_page_widget.dart';
 import 'package:lenoir_website/Widgets/app_bar/text_button_widget.dart';
 
 import '../../Data/icons.dart';
+import '../../Data/values.dart';
 import 'brand_bar_widget.dart';
 
 class AppBarWidget extends StatefulWidget {
