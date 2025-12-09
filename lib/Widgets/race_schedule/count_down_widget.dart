@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,6 +37,9 @@ class _CountDownWidgetState extends State<CountDownWidget>
       vsync: this,
       duration: Duration(milliseconds: 500),
     );
+    _animationWhiteOffsetEntry = Tween(begin: -2000.0, end: 0).animate(
+      _controllerWhiteOffsetEntry,
+    ); // Template Initialization to avoid late initialization error
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _animationWhiteOffsetEntry = Tween(
@@ -51,6 +52,10 @@ class _CountDownWidgetState extends State<CountDownWidget>
       vsync: this,
       duration: Duration(seconds: 2),
     );
+
+    _animationRaceDayOffset = Tween(begin: -2000.0, end: 0).animate(
+      _controllerRaceDayOffset,
+    ); // Template Initialization to avoid late initialization error
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _animationRaceDayOffset =
@@ -70,6 +75,9 @@ class _CountDownWidgetState extends State<CountDownWidget>
       duration: Duration(milliseconds: 500),
     );
 
+    _animationWhiteOffsetExit = Tween(begin: -2000.0, end: 0).animate(
+      _controllerWhiteOffsetExit,
+    ); // Template Initialization to avoid late initialization error
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _animationWhiteOffsetExit = Tween(
         begin: 0.0,
@@ -116,10 +124,10 @@ class _CountDownWidgetState extends State<CountDownWidget>
 
   @override
   void dispose() {
-    updateCounterTimer.cancel();
     _controllerWhiteOffsetEntry.dispose();
     _controllerWhiteOffsetExit.dispose();
     _controllerRaceDayOffset.dispose();
+    updateCounterTimer.cancel();
     super.dispose();
   }
 

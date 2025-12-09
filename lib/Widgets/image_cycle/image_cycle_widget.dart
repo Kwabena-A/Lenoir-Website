@@ -37,11 +37,13 @@ class _ImageCycleWidgetState extends State<ImageCycleWidget> {
           ValueListenableBuilder(
             valueListenable: currentCycle,
             builder: (context, currentIndex, child) {
-              _controller.animateTo(
-                (currentIndex % 3) * MediaQuery.of(context).size.width,
-                duration: Duration(milliseconds: 200),
-                curve: Curves.easeInOut,
-              );
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                _controller.animateTo(
+                  (currentIndex % 3) * MediaQuery.of(context).size.width,
+                  duration: Duration(milliseconds: 200),
+                  curve: Curves.easeInOut,
+                );
+              });
               return Container();
             },
           ),

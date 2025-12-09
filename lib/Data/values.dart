@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'dart:math';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lenoir_website/Widgets/Menu/car_display_element_widget.dart';
 import 'package:lenoir_website/Widgets/Menu/menu_object_widget.dart';

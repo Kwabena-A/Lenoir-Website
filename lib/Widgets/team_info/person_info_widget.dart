@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import '../../Data/values.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-import 'dart:math';
-
 // Person Blocks
 class PersonInfo extends StatefulWidget {
   const PersonInfo({

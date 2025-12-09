@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lenoir_website/Data/values.dart';
-import 'dart:math';
 
 enum ScrollArrowSide { left, right }
 

@@ -26,7 +26,7 @@ class _MemberDescriptionState extends State<MemberDescription>
 
   late Listenable _merged;
 
-  void reset_controllers() {
+  void resetControllers() {
     _controllerTitle.reset();
     _controllerRole.reset();
     _controllerDescription.reset();
@@ -106,7 +106,7 @@ class _MemberDescriptionState extends State<MemberDescription>
     return ValueListenableBuilder(
       valueListenable: currentPerson,
       builder: (context, value, child) {
-        reset_controllers();
+        resetControllers();
         _controllerTitle.forward();
         return AnimatedBuilder(
           animation: _merged,

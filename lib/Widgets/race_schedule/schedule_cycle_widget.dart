@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lenoir_website/Data/values.dart';
-import 'package:lenoir_website/Widgets/race_schedule/schedule_cycle_object_widget.dart';
 import 'package:lenoir_website/Widgets/race_schedule/scroll_arrow_widget.dart';
 
 class ScheduleCycleWidget extends StatefulWidget {
@@ -11,7 +10,13 @@ class ScheduleCycleWidget extends StatefulWidget {
 }
 
 class _ScheduleCycleWidgetState extends State<ScheduleCycleWidget> {
-  ScrollController scheduleScrollController = ScrollController();
+  final ScrollController _scheduleScrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scheduleScrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class _ScheduleCycleWidgetState extends State<ScheduleCycleWidget> {
             padding: EdgeInsets.symmetric(
               horizontal: (MediaQuery.of(context).size.width * 0.26),
             ),
-            controller: scheduleScrollController,
+            controller: _scheduleScrollController,
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
@@ -57,12 +62,12 @@ class _ScheduleCycleWidgetState extends State<ScheduleCycleWidget> {
             children: [
               ScrollArrowWidget(
                 side: ScrollArrowSide.left,
-                scrollController: scheduleScrollController,
+                scrollController: _scheduleScrollController,
               ),
               Expanded(child: Container()),
               ScrollArrowWidget(
                 side: ScrollArrowSide.right,
-                scrollController: scheduleScrollController,
+                scrollController: _scheduleScrollController,
               ),
             ],
           ),

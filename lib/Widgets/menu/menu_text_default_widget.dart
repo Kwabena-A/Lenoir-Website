@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lenoir_website/Data/values.dart';
-import 'package:lenoir_website/Widgets/home_page_widget.dart';
 
 class MenuTextDefaultWidget extends StatelessWidget {
   final MenuObject menuObject;
