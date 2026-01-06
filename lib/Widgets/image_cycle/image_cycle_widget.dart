@@ -25,6 +25,7 @@ class _ImageCycleWidgetState extends State<ImageCycleWidget> {
     return SizedBox(
       height: MediaQuery.of(context).size.height,
       child: Stack(
+        alignment: Alignment.bottomCenter,
         children: [
           IgnorePointer(
             child: SingleChildScrollView(
@@ -66,23 +67,16 @@ class _ImageCycleWidgetState extends State<ImageCycleWidget> {
             ),
           ),
 
-          Column(
-            children: [
-              Expanded(flex: 4, child: Container()),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ...List.generate(headlines.length, (index) {
-                      return CycleIndicator(
-                        count: headlines.length,
-                        index: index,
-                      );
-                    }),
-                  ],
-                ),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.only(bottom: 50),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ...List.generate(headlines.length, (index) {
+                  return CycleIndicator(count: headlines.length, index: index);
+                }),
+              ],
+            ),
           ),
         ],
       ),

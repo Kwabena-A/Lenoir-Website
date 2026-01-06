@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lenoir_website/Data/values.dart';
 
 // Each Slide
@@ -96,10 +97,12 @@ class _CycleObjectState extends State<CycleObject>
           child: Image.asset(widget.image, fit: BoxFit.cover),
         ),
 
-        Center(
-          child: Container(
-            width: widgetWidth,
-            padding: EdgeInsets.symmetric(horizontal: 150, vertical: 100),
+        Positioned.fill(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: widgetWidth * 0.1,
+              vertical: 100,
+            ),
             child: ValueListenableBuilder(
               valueListenable: currentCycle,
               builder: (context, value, child) {
@@ -123,12 +126,13 @@ class _CycleObjectState extends State<CycleObject>
                           offset: Offset(0, _animationSubheadlineOffset.value),
                           child: Text(
                             widget.subHeadline,
+                            softWrap: true,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: "Montserrat",
+                            style: GoogleFonts.getFont(
+                              "Poppins",
                               color: _animationSubheadlineOpacity.value,
                               fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w200,
                             ),
                           ),
                         ),
@@ -137,11 +141,13 @@ class _CycleObjectState extends State<CycleObject>
                           offset: Offset(0, _animationHeadlineOffset.value),
                           child: Text(
                             widget.headline,
+                            softWrap: true,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: "oddlini",
+                            style: GoogleFonts.getFont(
+                              "Michroma",
                               color: _animationHeadlineOpacity.value,
-                              fontSize: 40,
+                              fontSize: 35,
+                              fontWeight: FontWeight.w800,
                             ),
                           ),
                         ),

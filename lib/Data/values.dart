@@ -19,7 +19,7 @@ final List<CycleObject> headlines = [
   CycleObject(
     image: "current_car.png",
     headline: "Car becomes finalized and is ready to race",
-    subHeadline: "our design engineer is so good",
+    subHeadline: "Our design engineer is so good",
   ),
   CycleObject(
     image: "newsA.jpg",
@@ -99,7 +99,7 @@ List<PersonInfo> teamMembers = [
   PersonInfo(
     name: "Hisyam Arrazi",
     image: "team_members/hisyam.png",
-    role: "Business Man",
+    role: "Business Manager",
     description:
         "Identifies and secures sponsorships while promoting the team externally. Prepares proposals and maintains partner relations.",
   ),

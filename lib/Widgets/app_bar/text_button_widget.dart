@@ -4,7 +4,8 @@ import 'package:lenoir_website/Data/constants.dart';
 
 class TextButtonWidget extends StatefulWidget {
   final String text;
-  const TextButtonWidget({super.key, required this.text});
+  final Function? onTap;
+  const TextButtonWidget({super.key, required this.text, this.onTap});
 
   @override
   State<TextButtonWidget> createState() => _TextButtonWidgetState();
@@ -13,14 +14,21 @@ class TextButtonWidget extends StatefulWidget {
 class _TextButtonWidgetState extends State<TextButtonWidget> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(right: 50),
-      child: Text(
-        widget.text,
-        style: GoogleFonts.getFont(
-          "Montserrat",
-          color: KColor.KMainColor,
-          height: 0,
+    return GestureDetector(
+      onTap: (widget.onTap != null)
+          ? () {
+              widget.onTap!.call();
+            }
+          : () {},
+      child: Padding(
+        padding: EdgeInsets.only(right: 50),
+        child: Text(
+          widget.text,
+          style: GoogleFonts.getFont(
+            "Montserrat",
+            color: KColor.KMainColor,
+            height: 0,
+          ),
         ),
       ),
     );

@@ -123,30 +123,33 @@ class _PersonInfoState extends State<PersonInfo> with TickerProviderStateMixin {
       child: AnimatedBuilder(
         animation: _merged,
         builder: (context, child) {
-          return Stack(
-            children: [
-              Transform.translate(
-                offset: Offset(0, _entryAnimationBoxOffset.value),
-                child: Container(color: Color(0xafdcc893)),
-              ),
-              VisibilityDetector(
-                key: Key(widget.name),
-                onVisibilityChanged: (info) {
-                  bool visibility = info.visibleFraction > 0.15;
-                  int delay = teamMembers.indexOf(widget) * 100;
-                  if (visibility) {
-                    Timer(
-                      Duration(milliseconds: delay),
-                      () => animateEntranceForward(),
-                    );
-                  } else {
-                    Timer(
-                      Duration(milliseconds: delay),
-                      () => animateEntranceReverse(),
-                    );
-                  }
-                },
-                child: ValueListenableBuilder(
+          return VisibilityDetector(
+            key: Key(widget.name),
+            onVisibilityChanged: (info) {
+              bool visibility = info.visibleFraction > 0.15;
+              int delay = teamMembers.indexOf(widget) * 100;
+              if (visibility) {
+                Timer(
+                  Duration(milliseconds: delay),
+                  () => animateEntranceForward(),
+                );
+              } else {
+                Timer(
+                  Duration(milliseconds: delay),
+                  () => animateEntranceReverse(),
+                );
+              }
+            },
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: Transform.translate(
+                    offset: Offset(0, _entryAnimationBoxOffset.value),
+                    child: Container(color: Color(0xafdcc893)),
+                  ),
+                ),
+
+                ValueListenableBuilder(
                   valueListenable: currentPerson,
                   builder: (context, value, child) {
                     if (currentPerson.value == widget) {
@@ -188,8 +191,8 @@ class _PersonInfoState extends State<PersonInfo> with TickerProviderStateMixin {
                     );
                   },
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),

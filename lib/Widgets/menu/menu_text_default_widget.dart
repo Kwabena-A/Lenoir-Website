@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lenoir_website/Data/values.dart';
 
 class MenuTextDefaultWidget extends StatelessWidget {
@@ -42,10 +43,10 @@ class MenuTextDefaultWidget extends StatelessWidget {
               children: [
                 Text(
                   menuObject.title,
-                  style: TextStyle(
-                    fontFamily: "Zalando",
+                  style: GoogleFonts.getFont(
+                    "Michroma",
                     color: (value == index) ? Colors.white : Color(0xFF8f8f8f),
-                    fontSize: 16,
+                    fontSize: 14,
                   ),
                 ),
                 Expanded(child: Container()),

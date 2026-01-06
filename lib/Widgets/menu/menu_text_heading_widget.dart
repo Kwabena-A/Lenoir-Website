@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MenuTextHeadingWidget extends StatelessWidget {
   final String title;
@@ -22,8 +23,8 @@ class MenuTextHeadingWidget extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(
-                fontFamily: "Zalando",
+              style: GoogleFonts.getFont(
+                "Michroma",
                 color: Color(0xFF8f8f8f),
                 fontSize: 12,
               ),

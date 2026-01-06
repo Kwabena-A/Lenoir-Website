@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lenoir_website/Widgets/race_schedule/schedule_cycle_widget.dart';
 
 import 'count_down_widget.dart';
@@ -14,10 +15,11 @@ class RaceScheduleWidget extends StatelessWidget {
         children: [
           Text(
             "RACE SCHEDULE",
-            style: TextStyle(
-              fontFamily: "oddlini",
+            style: GoogleFonts.getFont(
+              "Michroma",
               color: Colors.white,
               fontSize: 33,
+              fontWeight: FontWeight.w800,
             ),
           ),
           Padding(

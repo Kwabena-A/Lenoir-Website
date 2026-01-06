@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ScheduleCycleObjectWidget extends StatelessWidget {
   final String title;
@@ -9,14 +10,14 @@ class ScheduleCycleObjectWidget extends StatelessWidget {
 
   final String picture;
 
-  final IconData icon;
+  final IconData? icon;
 
   const ScheduleCycleObjectWidget({
     super.key,
     required this.title,
     required this.date,
     required this.picture,
-    required this.icon,
+    this.icon,
     this.directory,
   });
 
@@ -32,39 +33,43 @@ class ScheduleCycleObjectWidget extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ClipPath(
-                clipper: TrapezoidClipper(),
-                child: Container(
-                  height: 40,
-                  width: 80,
-                  color: Colors.white,
-                  child: Icon(icon, color: Colors.black, size: 30),
-                ),
-              ),
+              (icon != null)
+                  ? ClipPath(
+                      clipper: TrapezoidClipper(),
+                      child: Container(
+                        height: 40,
+                        width: 80,
+                        color: Colors.white,
+                        child: Icon(icon!, color: Colors.black, size: 30),
+                      ),
+                    )
+                  : Container(),
               SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     date,
-                    style: TextStyle(
+                    style: GoogleFonts.getFont(
+                      "Michroma",
+                      fontSize: 13,
                       color: Colors.white,
-                      fontFamily: "oddlini",
                     ),
                   ),
                   Text(
                     title,
-                    style: TextStyle(
+                    style: GoogleFonts.getFont(
+                      "Michroma",
                       color: Colors.white,
-                      fontFamily: "oddlini",
-                      fontSize: 20,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
               ),
             ],
           ),
-
+          SizedBox(height: 10),
           SizedBox(
             height: 200,
             width: 630,

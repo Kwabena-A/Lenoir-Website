@@ -123,11 +123,12 @@ class _MemberDescriptionState extends State<MemberDescription>
                     offset: Offset(0, _animationTitleOffset.value),
                     child: Text(
                       currentPerson.value.name,
-                      style: TextStyle(
-                        fontFamily: "oddlini",
+                      style: GoogleFonts.getFont(
+                        "Michroma",
                         color: _animationTitleOpacity.value,
-                        fontSize: 30,
+                        fontSize: 25,
                         height: 0,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),

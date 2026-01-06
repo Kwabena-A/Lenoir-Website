@@ -83,9 +83,23 @@ class _AppBarWidgetState extends State<AppBarWidget>
                           child: SvgPicture.string(KIcons.lenoirIcon),
                         ),
                         TextButtonWidget(text: "Racing"),
-                        TextButtonWidget(text: "About Us"),
+                        TextButtonWidget(
+                          text: "About Us",
+                          onTap: () => homePageScrollController.animateTo(
+                            MediaQuery.of(context).size.height - 50,
+                            duration: Duration(seconds: 1),
+                            curve: Curves.easeInOut,
+                          ),
+                        ),
                         TextButtonWidget(text: "Our Cars"),
-                        TextButtonWidget(text: "Schedule"),
+                        TextButtonWidget(
+                          text: "Schedule",
+                          onTap: () => homePageScrollController.animateTo(
+                            MediaQuery.of(context).size.height * 2,
+                            duration: Duration(seconds: 1),
+                            curve: Curves.easeInOut,
+                          ),
+                        ),
                       ],
                     ),
                   ],

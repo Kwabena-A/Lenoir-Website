@@ -14,7 +14,7 @@ class ScrollArrowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double scrollStep = MediaQuery.of(context).size.width * 0.48;
+    double scrollStep = 690;
     return SizedBox(
       height: double.infinity,
       width: 40,
