@@ -232,28 +232,24 @@ class _CountDownWidgetState extends State<CountDownWidget>
             ),
           ),
 
-          Positioned.fill(
-            child: AnimatedBuilder(
-              animation: _animationRaceDayOffset,
-              builder: (context, child) {
-                return Transform.translate(
-                  offset: Offset(_animationRaceDayOffset.value, 0),
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.only(top: 15),
-                    child: Text(
-                      "RACE DAY",
-                      style: TextStyle(
-                        fontFamily: "oddlini",
-                        fontSize: 200,
-                        height: 0,
-                        fontWeight: FontWeight.w100,
-                      ),
+          AnimatedBuilder(
+            animation: _animationRaceDayOffset,
+            builder: (context, child) {
+              return Transform.translate(
+                offset: Offset(_animationRaceDayOffset.value, 0),
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "RACE DAY",
+                    style: GoogleFonts.getFont(
+                      "Michroma",
+                      fontSize: 150,
+                      fontWeight: FontWeight.w900,
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ],
       ),
