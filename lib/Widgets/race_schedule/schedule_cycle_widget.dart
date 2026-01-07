@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lenoir_website/Data/values.dart';
-import 'package:lenoir_website/Widgets/race_schedule/schedule_cycle_object_widget.dart';
 import 'package:lenoir_website/Widgets/race_schedule/scroll_arrow_widget.dart';
 
 class ScheduleCycleWidget extends StatefulWidget {

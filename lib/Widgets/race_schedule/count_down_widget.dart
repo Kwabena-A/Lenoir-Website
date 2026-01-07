@@ -243,7 +243,8 @@ class _CountDownWidgetState extends State<CountDownWidget>
                     "RACE DAY",
                     style: GoogleFonts.getFont(
                       "Michroma",
-                      fontSize: 150,
+                      fontSize: 175,
+                      height: 0,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
