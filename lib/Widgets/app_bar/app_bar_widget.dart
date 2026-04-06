@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lenoir_website/Widgets/app_bar/icon_button_widget.dart';
 import 'package:lenoir_website/Widgets/app_bar/text_button_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../Data/icons.dart';
 import '../../Data/values.dart';
@@ -69,38 +71,47 @@ class _AppBarWidgetState extends State<AppBarWidget>
                 width: double.infinity,
                 color: Colors.black,
                 alignment: Alignment.centerLeft,
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 1),
+                child: Row(
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(right: 60),
-                          width: 25,
-                          height: 25,
-                          alignment: Alignment.center,
-                          child: SvgPicture.string(KIcons.lenoirIcon),
-                        ),
-                        TextButtonWidget(text: "Racing"),
-                        TextButtonWidget(
-                          text: "About Us",
-                          onTap: () => homePageScrollController.animateTo(
-                            MediaQuery.of(context).size.height - 50,
-                            duration: Duration(seconds: 1),
-                            curve: Curves.easeInOut,
-                          ),
-                        ),
-                        TextButtonWidget(text: "Our Cars"),
-                        TextButtonWidget(
-                          text: "Schedule",
-                          onTap: () => homePageScrollController.animateTo(
-                            MediaQuery.of(context).size.height * 2,
-                            duration: Duration(seconds: 1),
-                            curve: Curves.easeInOut,
-                          ),
-                        ),
-                      ],
+                    Container(
+                      margin: EdgeInsets.only(right: 60),
+                      width: 25,
+                      height: 25,
+                      alignment: Alignment.center,
+                      child: SvgPicture.string(KIcons.lenoirIcon),
+                    ),
+                    TextButtonWidget(text: "Racing"),
+                    TextButtonWidget(
+                      text: "About Us",
+                      onTap: () => homePageScrollController.animateTo(
+                        MediaQuery.of(context).size.height - 50,
+                        duration: Duration(seconds: 1),
+                        curve: Curves.easeInOut,
+                      ),
+                    ),
+                    TextButtonWidget(text: "Our Cars"),
+                    TextButtonWidget(
+                      text: "Schedule",
+                      onTap: () => homePageScrollController.animateTo(
+                        MediaQuery.of(context).size.height * 2,
+                        duration: Duration(seconds: 1),
+                        curve: Curves.easeInOut,
+                      ),
+                    ),
+
+                    Expanded(child: Container()),
+                    IconButtonWidget(
+                      link: "https://www.instagram.com/lenoir_f1",
+                      icon: KIcons.instagram,
+                    ),
+                    IconButtonWidget(
+                      link: "https://www.tiktok.com/@lenoirracing",
+                      icon: KIcons.tiktok,
+                    ),
+                    IconButtonWidget(
+                      link: "https://www.linkedin.com/company/lenoir-racing",
+                      icon: KIcons.linkedIN,
                     ),
                   ],
                 ),
